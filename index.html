@@ -1203,7 +1203,7 @@ const STAGE_CLASS = {
 const PAYER_TYPES = ["Health Plan", "ACO", "Health System"];
 const SPONSOR_TYPES = ["Pharma", "Biotech", "CRO"];
 
-const STORAGE_KEY = "haystack_crm_v3";
+const STORAGE_KEY = "haystack_crm_v4";
 
 /* --- State --- */
 let state = {
@@ -1321,6 +1321,187 @@ function seed() {
     { id: uid(), organizationName: "Parexel",                contactName: "Jamie Macdonald",      contactEmail: "jmacdonald@parexel.com",                   customerType: "CRO",     numberOfTrials: 8,  expectedEnrollmentsPerTrial: 240, feePerEnrollment: 1400, stage: "Prospecting", closeProbability: 10, notes: "Global CRO specializing in regulatory and clinical development. Strong in late-phase trials most relevant to MA populations." },
     { id: uid(), organizationName: "Medpace",                contactName: "August Troendle",      contactEmail: "atroendle@medpace.com",                    customerType: "CRO",     numberOfTrials: 6,  expectedEnrollmentsPerTrial: 200, feePerEnrollment: 1500, stage: "Prospecting", closeProbability: 10, notes: "Mid-size CRO known for oncology, CV and metabolic trials. Full-service model. Strong in Phase II-III where MA enrollment most valuable." },
   ];
+
+  // ============================================================
+  // Update stages + add interaction history (realistic demo data)
+  // ============================================================
+  const findP = (name) => state.payer.find(r => r.organizationName === name);
+  const findS = (name) => state.sponsor.find(r => r.organizationName === name);
+  const setStage = (rec, stage, prob) => { if (rec) { rec.stage = stage; rec.closeProbability = prob; } };
+  const I = (contact, date, type, notes, nextSteps) => {
+    if (!contact) return;
+    state.interactions.push({
+      id: uid(), contactId: contact.id, date, type, notes,
+      nextSteps: nextSteps || "", createdAt: Date.now(),
+    });
+  };
+
+  // ----- CLOSED WON -----
+  setStage(findP("Devoted Health"), "Closed Won", 100);
+  setStage(findP("Privia Quality Network"), "Closed Won", 100);
+  setStage(findS("Vertex Pharmaceuticals"), "Closed Won", 100);
+
+  // ----- PROPOSAL SENT (will show on Needs Attention) -----
+  setStage(findP("Humana Medicare"), "Proposal Sent", 60);
+  setStage(findP("SCAN Health Plan"), "Proposal Sent", 60);
+  setStage(findP("CVS Accountable Care"), "Proposal Sent", 60);
+  setStage(findP("Geisinger Health Plan (Risant Health)"), "Proposal Sent", 60);
+  setStage(findS("Eli Lilly"), "Proposal Sent", 60);
+  setStage(findS("Regeneron"), "Proposal Sent", 60);
+  setStage(findS("IQVIA"), "Proposal Sent", 60);
+
+  // ----- IN CONVERSATION -----
+  setStage(findP("Aetna Medicare (CVS Health)"), "In Conversation", 30);
+  setStage(findP("Alignment Healthcare"), "In Conversation", 30);
+  setStage(findP("Clover Health"), "In Conversation", 30);
+  setStage(findP("Kaiser Permanente Medicare"), "In Conversation", 30);
+  setStage(findP("Palm Beach ACO"), "In Conversation", 30);
+  setStage(findP("Advocate Health ACO"), "In Conversation", 30);
+  setStage(findP("Signify Health Collaborative ACO"), "In Conversation", 30);
+  setStage(findP("HealthCare Partners IPA"), "In Conversation", 30);
+  setStage(findP("Agilon Health"), "In Conversation", 30);
+  setStage(findS("Novo Nordisk"), "In Conversation", 30);
+  setStage(findS("AstraZeneca"), "In Conversation", 30);
+  setStage(findS("Merck & Co"), "In Conversation", 30);
+  setStage(findS("Pfizer"), "In Conversation", 30);
+  setStage(findS("Biogen"), "In Conversation", 30);
+  setStage(findS("ICON plc"), "In Conversation", 30);
+  setStage(findS("PPD (Thermo Fisher)"), "In Conversation", 30);
+
+  // ----- INTERACTION HISTORY -----
+
+  // === Closed Won: Devoted Health (full sales cycle) ===
+  I(findP("Devoted Health"), "2026-02-03", "Email", "Cold outreach to Ed Park introducing Haystack's MA data platform. Highlighted relevance to Devoted's tech-forward model and rapid growth.", "Wait for response; follow up in 1 week if no reply.");
+  I(findP("Devoted Health"), "2026-02-12", "Call", "30-min intro call with Ed and his Chief Data Officer. Strong interest in our enrollment matching and risk adjustment use cases. They're scaling fast and need better data infrastructure.", "Schedule on-site visit for late February.");
+  I(findP("Devoted Health"), "2026-02-28", "Meeting", "Full day on-site at Devoted HQ in Waltham. Walked through platform with their data science and clinical ops teams. Strong alignment on roadmap.", "Send technical specs and pricing structure within 7 days.");
+  I(findP("Devoted Health"), "2026-03-15", "Demo", "Technical demo with their engineering team. Validated API integration approach. They asked detailed questions about data freshness and uptime SLAs.", "Prepare formal proposal with custom SLA terms.");
+  I(findP("Devoted Health"), "2026-04-02", "Proposal Sent", "Sent 18-month proposal: $1.40 PMPM × 468K members. Includes premium SLA and dedicated CSM.", "Schedule follow-up call to review terms.");
+  I(findP("Devoted Health"), "2026-04-22", "Other", "Contract signed! Deal closed at proposed terms. Kickoff scheduled for May 15.", "Coordinate kickoff and customer success handoff.");
+
+  // === Closed Won: Privia Quality Network ===
+  I(findP("Privia Quality Network"), "2026-01-15", "Email", "Initial outreach to Shawn Morris referencing their $740M+ in MSSP savings. Positioned Haystack as a tool to amplify ACO performance.", "");
+  I(findP("Privia Quality Network"), "2026-01-28", "Meeting", "Intro meeting with Shawn and VP of Population Health. Strong interest in our predictive analytics layer.", "Send case studies from similar-sized ACOs.");
+  I(findP("Privia Quality Network"), "2026-02-10", "Demo", "Walked through the analytics dashboard. They want to see how this would integrate with their existing Privia Cares platform.", "Prepare integration architecture doc.");
+  I(findP("Privia Quality Network"), "2026-03-05", "Proposal Sent", "Sent multi-year proposal: $1.50 PMPM × 846K lives. 3-year commitment with year-over-year discount.", "");
+  I(findP("Privia Quality Network"), "2026-04-08", "Other", "Closed Won! Signed 3-year agreement. Largest deal to date.", "Begin onboarding sequence.");
+
+  // === Closed Won: Vertex ===
+  I(findS("Vertex Pharmaceuticals"), "2026-02-20", "Email", "Outreach to Reshma's team about kidney disease pipeline. Highlighted MA population for trial recruitment.", "");
+  I(findS("Vertex Pharmaceuticals"), "2026-03-04", "Call", "Reshma's clinical ops lead explored partnership for suzetrigine and IgA nephropathy programs. Strong fit.", "Send case study deck and pilot proposal.");
+  I(findS("Vertex Pharmaceuticals"), "2026-03-18", "Meeting", "Onsite at Boston HQ. Met with clinical, regulatory, and procurement teams. Discussed pilot scope.", "Send formal pilot agreement.");
+  I(findS("Vertex Pharmaceuticals"), "2026-04-15", "Proposal Sent", "Sent 12-month pilot: 3 trials × 150 enrollments × $2,200 fee.", "");
+  I(findS("Vertex Pharmaceuticals"), "2026-05-02", "Other", "Pilot agreement signed. First trial kicks off June 1.", "Prepare for trial-1 launch.");
+
+  // === Proposal Sent (Needs Attention) ===
+
+  // Humana - recent activity, green
+  I(findP("Humana Medicare"), "2026-03-10", "Email", "Cold outreach to Bobby Hunter. Referenced their 1.2M member growth in 2026 — they're the only major national growing.", "");
+  I(findP("Humana Medicare"), "2026-03-22", "Call", "Productive call with Bobby's team. They're interested in our data for star ratings improvement and risk adjustment accuracy.", "Schedule deep-dive on data sharing protocols.");
+  I(findP("Humana Medicare"), "2026-04-05", "Meeting", "Deep-dive meeting on data sharing. They have strict HIPAA requirements; we walked through our BAA and security posture.", "Send security/compliance package.");
+  I(findP("Humana Medicare"), "2026-04-20", "Demo", "Showed enrollment matching tool to their analytics team. They were impressed with match rates on test cohort.", "Prepare comprehensive proposal.");
+  I(findP("Humana Medicare"), "2026-05-08", "Proposal Sent", "Sent 3-year proposal: $1.15 PMPM × 7M members. Tiered pricing with volume discounts after year 2.", "Follow up next week if no response.");
+
+  // SCAN Health Plan - overdue (32 days)
+  I(findP("SCAN Health Plan"), "2026-02-14", "Call", "Intro call with Sachin Jain. SCAN's 37% growth makes them a high-priority target. Sachin sees data infrastructure as a strategic moat.", "");
+  I(findP("SCAN Health Plan"), "2026-03-01", "Meeting", "Met with Sachin and his data team. Strong interest. They want to expand from CA nationally and need consistent data infrastructure.", "Send formal pricing.");
+  I(findP("SCAN Health Plan"), "2026-03-22", "Demo", "Showed the platform to their full executive team. Positive reception but they raised concerns about implementation timeline.", "Address timeline concerns in proposal.");
+  I(findP("SCAN Health Plan"), "2026-04-12", "Proposal Sent", "Sent 2-year proposal with accelerated onboarding timeline. Pricing: $1.50 PMPM × 432K members.", "Awaiting response. Follow up if no movement.");
+
+  // CVS Accountable Care - 16 days, just overdue
+  I(findP("CVS Accountable Care"), "2026-03-05", "Email", "Outreach to Mike Pykosz referencing CVS's $585M+ ACO savings and 100% quality threshold achievement.", "");
+  I(findP("CVS Accountable Care"), "2026-03-19", "Call", "Strong call with Mike. He sees Haystack as complementary to CVS's existing data assets. Wants to bring in his strategy team.", "Schedule expanded discussion with strategy.");
+  I(findP("CVS Accountable Care"), "2026-04-08", "Meeting", "Met with broader CVS team including strategy and finance. Walked through ROI model.", "Refine ROI model and send proposal.");
+  I(findP("CVS Accountable Care"), "2026-04-28", "Proposal Sent", "Sent proposal: $1.30 PMPM × 1M lives. Includes pilot conversion path.", "Follow up — this deal is critical, do not let it go cold.");
+
+  // Eli Lilly - 24 days overdue
+  I(findS("Eli Lilly"), "2026-02-08", "Email", "Outreach to Daniel Skovronsky about diabetes/obesity trials. Highlighted Medicare overlap for Mounjaro/Zepbound CV outcomes work.", "");
+  I(findS("Eli Lilly"), "2026-02-22", "Call", "Discussion of 13K-patient CV outcomes trial. Daniel's team sees Haystack as a way to accelerate site identification.", "Onsite visit at Indianapolis HQ.");
+  I(findS("Eli Lilly"), "2026-03-10", "Meeting", "Onsite at Lilly. Met with clinical ops, regulatory, and patient recruitment leads. Strong technical fit.", "Demo to wider team.");
+  I(findS("Eli Lilly"), "2026-03-28", "Demo", "Demoed patient identification platform to clinical ops team. They asked for a custom workflow for the obesity program.", "Prepare framework proposal with custom workflow scope.");
+  I(findS("Eli Lilly"), "2026-04-20", "Proposal Sent", "Sent 5-trial framework agreement at $1,800/enrollment × 300 enrollments × 6 trials. Includes scope for custom workflows.", "Following up — silence is concerning given prior momentum.");
+
+  // Regeneron - recent, green
+  I(findS("Regeneron"), "2026-04-02", "Email", "Outreach about Eylea retinal disease trials. Massive MA population for AMD trials.", "");
+  I(findS("Regeneron"), "2026-04-18", "Call", "George's team confirmed strong interest in Medicare overlap for retinal disease and oncology programs.", "Site visit at Tarrytown HQ.");
+  I(findS("Regeneron"), "2026-04-29", "Meeting", "Met with clinical ops team. Discussed trial site optimization and patient identification.", "Send framework proposal.");
+  I(findS("Regeneron"), "2026-05-09", "Proposal Sent", "Sent proposal: 4 trials × 200 enrollments × $2,100 fee.", "Follow up next week.");
+
+  // IQVIA - critically overdue (42 days), large strategic deal
+  I(findS("IQVIA"), "2026-01-20", "Email", "Strategic partnership outreach to Ari Bousbib. IQVIA as channel partner could 10x our trial sponsor footprint.", "");
+  I(findS("IQVIA"), "2026-02-05", "Call", "Channel partnership discussion. IQVIA team enthusiastic about embedding Haystack into their sponsor offerings.", "Visit IQVIA HQ.");
+  I(findS("IQVIA"), "2026-02-25", "Meeting", "Onsite at IQVIA NC HQ. Met with global delivery and strategy. Discussed co-selling model and rev share.", "Demo the platform to broader team.");
+  I(findS("IQVIA"), "2026-03-15", "Demo", "Platform demo to IQVIA strategy and product teams. Positive response, but they raised questions about integration with their existing tools.", "Address integration questions and send master partnership agreement.");
+  I(findS("IQVIA"), "2026-04-02", "Proposal Sent", "Sent Master Partnership Agreement: 12 trials × 300 enrollments × $1,450 fee, with rev share structure for IQVIA-sourced deals.", "CRITICAL — this deal has been silent for 6 weeks. Need to reach out to Ari directly.");
+
+  // Geisinger - recent, green
+  I(findP("Geisinger Health Plan (Risant Health)"), "2026-03-12", "Email", "Outreach to Jaewon Ryu. Geisinger's 5-star plan and provider-integrated model is a strong showcase opportunity.", "");
+  I(findP("Geisinger Health Plan (Risant Health)"), "2026-04-01", "Call", "Discussion with Jaewon and his data lead. They want to leverage Haystack for provider integration analytics across PA market.", "Onsite at Danville HQ.");
+  I(findP("Geisinger Health Plan (Risant Health)"), "2026-04-22", "Meeting", "Onsite meeting covered Risant Health rollout plans (Kaiser subsidiary). They want Haystack at scale across Risant network.", "Send multi-entity proposal.");
+  I(findP("Geisinger Health Plan (Risant Health)"), "2026-05-10", "Proposal Sent", "Sent proposal: $1.35 PMPM × 300K members with Risant-network expansion option.", "Follow up if no response in 2 weeks.");
+
+  // ----- IN CONVERSATION interactions (1-3 each) -----
+
+  I(findP("Aetna Medicare (CVS Health)"), "2026-04-15", "Email", "Cold outreach to Steve Nelson. Referenced their 81% 4+ star plan ratings as a strength.", "");
+  I(findP("Aetna Medicare (CVS Health)"), "2026-05-02", "Call", "Steve's team open to exploring use cases. They want to see how this complements existing CVS Health data assets.", "Schedule deep-dive with their analytics lead.");
+
+  I(findP("Alignment Healthcare"), "2026-04-22", "Call", "Intro call with John Kao. They're disciplined growers and very data-forward.", "Send technical overview.");
+  I(findP("Alignment Healthcare"), "2026-05-09", "Meeting", "Deep dive on their tech stack. Alignment runs a tight ship — their bar for vendor data is high.", "Prepare technical fit assessment.");
+
+  I(findP("Clover Health"), "2026-04-28", "Email", "Outreach to Jamie Reynoso. Their Clover Assistant AI platform is a natural integration point.", "");
+  I(findP("Clover Health"), "2026-05-06", "Call", "Jamie's team interested in our data feeding Clover Assistant. Discussed AI integration patterns.", "Send architecture proposal.");
+
+  I(findP("Kaiser Permanente Medicare"), "2026-04-08", "Email", "Outreach to Greg Adams. Kaiser's integrated model is a unique opportunity.", "");
+  I(findP("Kaiser Permanente Medicare"), "2026-04-25", "Call", "Greg's team explored fit. They have lots of internal data but see opportunity in external benchmarking.", "Onsite visit.");
+  I(findP("Kaiser Permanente Medicare"), "2026-05-12", "Meeting", "Met with Kaiser team in Oakland. Discussed integration with their 5-star plan program.", "Prepare 5-star focused proposal.");
+
+  I(findP("Palm Beach ACO"), "2026-04-12", "Call", "Richard Bagby walked through their MSSP track record. Strong fit for our analytics.", "Schedule data review.");
+  I(findP("Palm Beach ACO"), "2026-05-01", "Meeting", "Met with Richard's team. They want to validate our analytics against their internal benchmarks first.", "Send sample analytics for their review.");
+
+  I(findP("Advocate Health ACO"), "2026-04-18", "Email", "Outreach to Jim Skogsbergh. Their 8 ACOs across 6 states is a great expansion opportunity.", "");
+  I(findP("Advocate Health ACO"), "2026-05-05", "Call", "Discussed multi-ACO rollout strategy with Jim's team.", "Send multi-entity pricing proposal.");
+
+  I(findP("Signify Health Collaborative ACO"), "2026-04-25", "Call", "Kyle Armbrester's team interested given CVS Health connection. Could be a natural extension of CVS Accountable Care deal.", "");
+  I(findP("Signify Health Collaborative ACO"), "2026-05-11", "Meeting", "Aligned on a coordinated approach with the CVS Accountable Care deal.", "Sync with CVS Accountable Care progress.");
+
+  I(findP("HealthCare Partners IPA"), "2026-04-30", "Email", "Northeast IPA outreach to Robert Margolis. Their 4900-physician network is a major target.", "");
+  I(findP("HealthCare Partners IPA"), "2026-05-08", "Call", "Productive intro call. They want to bring in their managed care leadership.", "Schedule larger team meeting.");
+
+  I(findP("Agilon Health"), "2026-04-20", "Email", "Outreach to Steve Sell about total-cost-of-care MA models.", "");
+  I(findP("Agilon Health"), "2026-05-04", "Call", "Steve's team open to a pilot conversation. They like the partner-network model.", "Prepare pilot scope.");
+
+  I(findS("Novo Nordisk"), "2026-04-15", "Email", "Outreach about GLP-1 CV outcomes trials. ~55% GLP-1 market share makes them a strategic target.", "");
+  I(findS("Novo Nordisk"), "2026-05-02", "Call", "Martin Holst Lange's team interested in obesity outcomes trials. Want to explore enrollment acceleration.", "Send pilot proposal.");
+
+  I(findS("AstraZeneca"), "2026-04-25", "Call", "Susan Galbraith's clinical ops lead explored oncology trial outreach. Strong fit with Tagrisso/Enhertu programs.", "Schedule deep-dive.");
+  I(findS("AstraZeneca"), "2026-05-10", "Meeting", "Deep dive on their oncology pipeline. Aligned on which 3 trials would benefit most from Haystack.", "Prepare 3-trial scope proposal.");
+
+  I(findS("Merck & Co"), "2026-04-10", "Email", "Outreach about Keytruda lifecycle management trials.", "");
+  I(findS("Merck & Co"), "2026-04-28", "Call", "Dean Li's team confirmed need for accelerated enrollment as Keytruda biosimilars approach.", "");
+  I(findS("Merck & Co"), "2026-05-08", "Meeting", "Met with Merck oncology clinical ops. Discussed 5-7 trials in scope.", "Prepare multi-trial proposal.");
+
+  I(findS("Pfizer"), "2026-04-30", "Email", "Outreach to Mikael Dolsten about Lyme vaccine and broad oncology portfolio.", "");
+  I(findS("Pfizer"), "2026-05-09", "Call", "Mikael's team interested in Lyme vaccine Phase 3 enrollment — large MA-age population overlap.", "Send vaccine-specific pilot proposal.");
+
+  I(findS("Biogen"), "2026-04-20", "Call", "Chris Viehbacher's team highly interested in Leqembi expansion trials. Direct Medicare population overlap.", "Send technical demo.");
+  I(findS("Biogen"), "2026-05-07", "Demo", "Demoed patient identification with focus on early-Alzheimer's cohorts. Strong reception.", "Prepare Leqembi-specific proposal.");
+
+  I(findS("ICON plc"), "2026-04-18", "Email", "CRO partnership outreach to Steve Cutler. Similar play to IQVIA partnership.", "");
+  I(findS("ICON plc"), "2026-05-03", "Call", "ICON interested in channel partnership. They want to differentiate from IQVIA on data assets.", "Develop ICON-specific partnership proposal.");
+
+  I(findS("PPD (Thermo Fisher)"), "2026-05-05", "Call", "David Simmons' team explored oncology and CV CRO partnership. Wants to see how this fits with Thermo Fisher's broader data strategy.", "Schedule follow-up.");
+
+  // ----- A few Prospecting interactions (initial touches) -----
+  I(findP("UnitedHealthcare Medicare & Retirement"), "2026-05-12", "Email", "Cold outreach to Tim Noel — biggest target in the pipeline. Referenced their 94% county coverage.", "");
+  I(findP("Elevance Health (Wellpoint)"), "2026-05-08", "Email", "Outreach to Felicia Norwood. Top-5 national carrier worth pursuing despite recent member losses.", "");
+  I(findP("Centene (Wellcare)"), "2026-05-10", "Email", "Outreach about their 63-county expansion strategy.", "");
+  I(findP("Florida Blue Medicare"), "2026-05-06", "Email", "FL is one of the largest MA markets — high-priority initial outreach.", "");
+  I(findP("Heritage Provider Network"), "2026-05-11", "Email", "Outreach to Richard Merkin. CA capitated/risk-model pioneer — strong fit.", "");
+  I(findS("Roche/Genentech"), "2026-05-07", "Email", "Outreach to Levi Garraway about ADC pipeline.", "");
+  I(findS("Johnson & Johnson (Janssen)"), "2026-05-04", "Email", "Outreach about prostate cancer/multiple myeloma trials — strong MA-age overlap.", "");
+  I(findS("GSK"), "2026-05-13", "Email", "Shingrix vaccine + senior portfolio outreach.", "");
+  I(findS("Gilead Sciences"), "2026-05-10", "Email", "Outreach about Trodelvy ADC and oncology pipeline.", "");
+  I(findS("Parexel"), "2026-05-08", "Email", "CRO partnership outreach.", "");
+
   saveState();
 }
 
