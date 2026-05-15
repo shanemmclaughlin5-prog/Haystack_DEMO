@@ -174,6 +174,9 @@
     gap: 16px;
     margin-bottom: 28px;
   }
+  .kpi-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   .kpi-card {
     background: var(--white);
@@ -650,6 +653,7 @@
         <div class="page-subtitle">Combined view across Payer/Provider and Sponsor segments</div>
       </div>
       <div style="display:flex; gap:10px;">
+        <button class="btn btn-secondary" id="btnImport">Import CSV</button>
         <button class="btn btn-secondary" id="btnExportAll">Export All (CSV)</button>
       </div>
     </div>
@@ -674,6 +678,24 @@
         <div class="kpi-label">Total Annual Contract Value</div>
         <div class="kpi-value" id="kpiTotalACV">$0</div>
         <div class="kpi-sub">Unweighted across all deals</div>
+      </div>
+    </div>
+
+    <div class="kpi-grid kpi-grid-3">
+      <div class="kpi-card">
+        <div class="kpi-label">Avg Customer Value — Provider</div>
+        <div class="kpi-value" id="kpiAvgProvider">$0</div>
+        <div class="kpi-sub" id="kpiAvgProviderSub">0 Health Systems</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Avg Customer Value — Payer</div>
+        <div class="kpi-value" id="kpiAvgPayer">$0</div>
+        <div class="kpi-sub" id="kpiAvgPayerSub">0 Health Plans</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Avg Customer Value — Pharma</div>
+        <div class="kpi-value" id="kpiAvgPharma">$0</div>
+        <div class="kpi-sub" id="kpiAvgPharmaSub">0 Pharma deals</div>
       </div>
     </div>
 
@@ -858,6 +880,61 @@
   </div>
 </div>
 
+<!-- ========== IMPORT CSV MODAL ========== -->
+<div class="modal-overlay" id="importOverlay">
+  <div class="modal" style="max-width: 700px;">
+    <div class="modal-header">
+      <div class="modal-title">Import Pipeline from CSV</div>
+      <button class="modal-close" id="importClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-row full">
+          <label>Which pipeline are you importing into?</label>
+          <select class="input" id="importSegment">
+            <option value="payer">Payer / Provider (PMPM)</option>
+            <option value="sponsor">Sponsor (per-enrollment)</option>
+          </select>
+        </div>
+        <div class="form-row full">
+          <label>CSV File</label>
+          <input type="file" accept=".csv,text/csv" class="input" id="importFile" style="padding: 6px 10px;" />
+          <div style="font-size: 11px; color: var(--gray-500); margin-top: 6px;">
+            Tip: Export from this CRM first to see the exact column format, then edit and re-import.
+          </div>
+        </div>
+        <div class="form-row full">
+          <label>How to handle duplicate organization names?</label>
+          <select class="input" id="importDedup">
+            <option value="add">Add as new contacts (allow duplicates)</option>
+            <option value="update">Update existing contact if org name matches</option>
+            <option value="skip">Skip rows where org name already exists</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="importTemplate" style="margin-top: 20px;">
+        <div style="font-size: 12px; font-weight: 600; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px;">Expected columns</div>
+        <div id="importColumnsHint" style="background: var(--navy-50); border: 1px solid var(--navy-100); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 12px; color: var(--gray-700); line-height: 1.7;"></div>
+        <button class="btn btn-ghost" id="downloadTemplate" style="margin-top: 8px; padding: 4px 0;">Download empty template →</button>
+      </div>
+
+      <div id="importPreview" style="margin-top: 20px; display: none;">
+        <div style="font-size: 12px; font-weight: 600; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px;">Preview</div>
+        <div id="importPreviewBody" style="background: var(--gray-100); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 12px; max-height: 200px; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;"></div>
+        <div id="importStats" style="margin-top: 10px; font-size: 13px; color: var(--gray-700);"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div></div>
+      <div class="right">
+        <button class="btn btn-secondary" id="importCancel">Cancel</button>
+        <button class="btn btn-primary" id="importConfirm" disabled>Import</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1013,6 +1090,20 @@ function renderDashboard() {
   document.getElementById("kpiSponsorWeighted").textContent = fmtMoney(sponsorWeighted);
   document.getElementById("kpiSponsorDeals").textContent    = state.sponsor.length + " deals";
   document.getElementById("kpiTotalACV").textContent      = fmtMoney(payerACV + sponsorACV);
+
+  // Average customer value by end-market
+  const providerDeals = payerCalcs.filter(r => r.customerType === "Health System");
+  const payerOnlyDeals = payerCalcs.filter(r => r.customerType === "Health Plan");
+  const pharmaDeals = sponsorCalcs.filter(r => r.customerType === "Pharma");
+
+  const avg = (arr) => arr.length ? arr.reduce((s,r)=>s+r.acv,0) / arr.length : 0;
+
+  document.getElementById("kpiAvgProvider").textContent    = fmtMoney(avg(providerDeals));
+  document.getElementById("kpiAvgProviderSub").textContent = `${providerDeals.length} Health System${providerDeals.length === 1 ? "" : "s"}`;
+  document.getElementById("kpiAvgPayer").textContent       = fmtMoney(avg(payerOnlyDeals));
+  document.getElementById("kpiAvgPayerSub").textContent    = `${payerOnlyDeals.length} Health Plan${payerOnlyDeals.length === 1 ? "" : "s"}`;
+  document.getElementById("kpiAvgPharma").textContent      = fmtMoney(avg(pharmaDeals));
+  document.getElementById("kpiAvgPharmaSub").textContent   = `${pharmaDeals.length} Pharma deal${pharmaDeals.length === 1 ? "" : "s"}`;
 
   document.getElementById("funnelPayer").innerHTML   = funnelHTML(payerCalcs);
   document.getElementById("funnelSponsor").innerHTML = funnelHTML(sponsorCalcs);
@@ -1497,6 +1588,195 @@ function downloadCSV(filename, headers, rows) {
 }
 
 /* ============================================================
+   CSV IMPORT
+   ============================================================ */
+const IMPORT_SCHEMAS = {
+  payer: {
+    label: "Payer / Provider",
+    required: ["organization", "contact", "email", "customer type", "covered members", "estimated pmpm", "stage"],
+    types: PAYER_TYPES,
+    templateHeaders: ["Organization", "Contact", "Email", "Customer Type", "Covered Members", "Estimated PMPM", "Stage", "Close Probability (%)", "Notes"],
+    templateRow:     ["Acme Health Plan", "Jane Doe", "jane@acme.com", "Health Plan", "100000", "1.75", "Prospecting", "10", "Optional notes"],
+    parse(row) {
+      return {
+        organizationName: row["organization"] || row["organization name"] || "",
+        contactName:      row["contact"] || row["contact name"] || "",
+        contactEmail:     row["email"] || row["contact email"] || "",
+        customerType:     normalizeType(row["customer type"] || row["type"] || "", PAYER_TYPES),
+        coveredMembers:   toNumber(row["covered members"] || row["members"]),
+        estimatedPMPM:    toNumber(row["estimated pmpm"] || row["pmpm"]),
+        stage:            normalizeStage(row["stage"] || "Prospecting"),
+        closeProbability: toNumber(row["close probability (%)"] || row["close probability"] || row["probability"]) || STAGE_PROBABILITY[normalizeStage(row["stage"] || "Prospecting")],
+        notes:            row["notes"] || "",
+      };
+    },
+  },
+  sponsor: {
+    label: "Sponsor",
+    required: ["organization", "contact", "email", "customer type", "number of trials", "enrollments per trial", "fee per enrollment", "stage"],
+    types: SPONSOR_TYPES,
+    templateHeaders: ["Organization", "Contact", "Email", "Customer Type", "Number of Trials", "Enrollments per Trial", "Fee per Enrollment", "Stage", "Close Probability (%)", "Notes"],
+    templateRow:     ["NovaPharma Inc", "John Smith", "john@nova.com", "Pharma", "3", "200", "1800", "In Conversation", "30", "Optional notes"],
+    parse(row) {
+      return {
+        organizationName:           row["organization"] || row["organization name"] || "",
+        contactName:                row["contact"] || row["contact name"] || "",
+        contactEmail:               row["email"] || row["contact email"] || "",
+        customerType:               normalizeType(row["customer type"] || row["type"] || "", SPONSOR_TYPES),
+        numberOfTrials:             toNumber(row["number of trials"] || row["trials"]),
+        expectedEnrollmentsPerTrial:toNumber(row["enrollments per trial"] || row["expected enrollments per trial"]),
+        feePerEnrollment:           toNumber(row["fee per enrollment"] || row["fee"]),
+        stage:                      normalizeStage(row["stage"] || "Prospecting"),
+        closeProbability:           toNumber(row["close probability (%)"] || row["close probability"] || row["probability"]) || STAGE_PROBABILITY[normalizeStage(row["stage"] || "Prospecting")],
+        notes:                      row["notes"] || "",
+      };
+    },
+  },
+};
+
+function toNumber(v) {
+  if (v == null || v === "") return 0;
+  const n = Number(String(v).replace(/[$,\s]/g, ""));
+  return isNaN(n) ? 0 : n;
+}
+function normalizeType(v, allowed) {
+  if (!v) return allowed[0];
+  const t = String(v).trim().toLowerCase();
+  const match = allowed.find(a => a.toLowerCase() === t);
+  return match || allowed[0];
+}
+function normalizeStage(v) {
+  if (!v) return "Prospecting";
+  const t = String(v).trim().toLowerCase();
+  const match = STAGES.find(s => s.toLowerCase() === t);
+  return match || "Prospecting";
+}
+
+// Minimal RFC-4180-ish CSV parser (handles quoted values + escaped quotes)
+function parseCSV(text) {
+  const rows = [];
+  let cur = [], field = "", inQuotes = false, i = 0;
+  text = text.replace(/^﻿/, "").replace(/\r\n?/g, "\n");
+  while (i < text.length) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i+1] === '"') { field += '"'; i += 2; continue; }
+        inQuotes = false; i++; continue;
+      }
+      field += c; i++; continue;
+    }
+    if (c === '"') { inQuotes = true; i++; continue; }
+    if (c === ",") { cur.push(field); field = ""; i++; continue; }
+    if (c === "\n") { cur.push(field); rows.push(cur); cur = []; field = ""; i++; continue; }
+    field += c; i++;
+  }
+  if (field.length || cur.length) { cur.push(field); rows.push(cur); }
+  return rows.filter(r => r.some(c => c.trim() !== ""));
+}
+
+let importParsedRows = []; // staged contacts ready to import
+
+function openImport() {
+  document.getElementById("importFile").value = "";
+  document.getElementById("importPreview").style.display = "none";
+  document.getElementById("importConfirm").disabled = true;
+  importParsedRows = [];
+  updateImportColumnsHint();
+  document.getElementById("importOverlay").classList.add("open");
+}
+function closeImport() { document.getElementById("importOverlay").classList.remove("open"); }
+
+function updateImportColumnsHint() {
+  const seg = document.getElementById("importSegment").value;
+  const schema = IMPORT_SCHEMAS[seg];
+  document.getElementById("importColumnsHint").innerHTML =
+    `<strong>${schema.label}:</strong> ` + schema.templateHeaders.join(" · ") +
+    `<br><span style="color:var(--gray-500);">Customer Type must be one of: ${schema.types.join(", ")} · Stage must be one of: ${STAGES.join(", ")}</span>`;
+}
+
+function downloadImportTemplate() {
+  const seg = document.getElementById("importSegment").value;
+  const schema = IMPORT_SCHEMAS[seg];
+  downloadCSV(`haystack-${seg}-template.csv`, schema.templateHeaders, [schema.templateRow]);
+}
+
+function handleImportFile(file) {
+  const seg = document.getElementById("importSegment").value;
+  const schema = IMPORT_SCHEMAS[seg];
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const text = e.target.result;
+      const rows = parseCSV(text);
+      if (rows.length < 2) {
+        toast("CSV appears empty");
+        return;
+      }
+      const headers = rows[0].map(h => h.trim().toLowerCase());
+      const dataRows = rows.slice(1);
+      const parsed = dataRows.map(r => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = (r[i] || "").trim());
+        return schema.parse(obj);
+      });
+
+      // Validate
+      const valid = parsed.filter(p => p.organizationName && p.contactName && p.contactEmail);
+      const invalid = parsed.length - valid.length;
+      importParsedRows = valid;
+
+      // Preview (first 5)
+      const previewLines = valid.slice(0, 5).map(p =>
+        seg === "payer"
+          ? `${p.organizationName} · ${p.customerType} · ${fmtNumber(p.coveredMembers)} mbrs · $${(p.estimatedPMPM||0).toFixed(2)} PMPM · ${p.stage}`
+          : `${p.organizationName} · ${p.customerType} · ${p.numberOfTrials} trials · ${p.expectedEnrollmentsPerTrial}/trial · $${fmtNumber(p.feePerEnrollment)} fee · ${p.stage}`
+      );
+      document.getElementById("importPreviewBody").textContent = previewLines.join("\n") + (valid.length > 5 ? `\n…and ${valid.length - 5} more` : "");
+      document.getElementById("importStats").innerHTML =
+        `<strong style="color:var(--navy-900);">${valid.length} valid row${valid.length === 1 ? "" : "s"}</strong> ready to import` +
+        (invalid ? ` · <span style="color:var(--danger);">${invalid} skipped (missing org / contact / email)</span>` : "");
+      document.getElementById("importPreview").style.display = "block";
+      document.getElementById("importConfirm").disabled = valid.length === 0;
+    } catch (err) {
+      console.error(err);
+      toast("Couldn't parse CSV — check formatting");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function confirmImport() {
+  if (!importParsedRows.length) return;
+  const seg = document.getElementById("importSegment").value;
+  const dedup = document.getElementById("importDedup").value;
+  const list = seg === "payer" ? state.payer : state.sponsor;
+
+  let added = 0, updated = 0, skipped = 0;
+  importParsedRows.forEach(row => {
+    const existingIdx = list.findIndex(r => r.organizationName.toLowerCase() === row.organizationName.toLowerCase());
+    if (existingIdx >= 0) {
+      if (dedup === "skip") { skipped++; return; }
+      if (dedup === "update") {
+        list[existingIdx] = { ...list[existingIdx], ...row, updatedAt: Date.now() };
+        updated++; return;
+      }
+    }
+    list.push({ id: uid(), createdAt: Date.now(), updatedAt: Date.now(), ...row });
+    added++;
+  });
+
+  saveState();
+  closeImport();
+  renderAll();
+  const msgs = [];
+  if (added)   msgs.push(`${added} added`);
+  if (updated) msgs.push(`${updated} updated`);
+  if (skipped) msgs.push(`${skipped} skipped`);
+  toast("Import complete: " + (msgs.join(", ") || "no changes"));
+}
+
+/* ============================================================
    UTILS
    ============================================================ */
 function escapeHTML(s) {
@@ -1532,6 +1812,25 @@ function wireEvents() {
   document.getElementById("btnExportPayer").onclick = () => exportCSV("payer");
   document.getElementById("btnExportSponsor").onclick = () => exportCSV("sponsor");
   document.getElementById("btnExportAll").onclick = () => exportCSV("all");
+  document.getElementById("btnImport").onclick = openImport;
+  document.getElementById("importClose").onclick = closeImport;
+  document.getElementById("importCancel").onclick = closeImport;
+  document.getElementById("importSegment").addEventListener("change", () => {
+    updateImportColumnsHint();
+    document.getElementById("importPreview").style.display = "none";
+    document.getElementById("importConfirm").disabled = true;
+    document.getElementById("importFile").value = "";
+    importParsedRows = [];
+  });
+  document.getElementById("importFile").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) handleImportFile(file);
+  });
+  document.getElementById("downloadTemplate").onclick = downloadImportTemplate;
+  document.getElementById("importConfirm").onclick = confirmImport;
+  document.getElementById("importOverlay").addEventListener("click", e => {
+    if (e.target.id === "importOverlay") closeImport();
+  });
 
   document.getElementById("modalClose").onclick = hideModal;
   document.getElementById("btnCancel").onclick = hideModal;
@@ -1576,6 +1875,7 @@ function wireEvents() {
     if (e.key === "Escape") {
       hideModal();
       document.getElementById("confirmOverlay").classList.remove("open");
+      closeImport();
     }
   });
 }

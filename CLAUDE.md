@@ -138,6 +138,7 @@ Probability auto-fills from stage when the user changes the stage dropdown, but 
 - Filter by stage and customer type
 - Click any column header to sort (asc/desc toggle)
 - CSV export per segment + "Export All" on the dashboard
+- **CSV import** (Dashboard → "Import CSV") with segment selector, template download, preview, and duplicate-handling options (add / update / skip)
 - Live ACV + weighted value preview inside the form as the user types
 - Confirm dialog before delete
 - Empty states with helpful copy
@@ -160,8 +161,10 @@ Probability auto-fills from stage when the user changes the stage dropdown, but 
 ## Pages / sections
 
 1. **Dashboard** (`#view-dashboard`)
-   - 4 KPI cards: Total Weighted Pipeline (featured navy gradient), Payer/Provider Weighted, Sponsor Weighted, Total ACV
+   - Top row of 4 KPI cards: Total Weighted Pipeline (featured navy gradient), Payer/Provider Weighted, Sponsor Weighted, Total ACV
+   - Second row of 3 KPI cards — **Average Customer Value by end-market**: Provider (Health System), Payer (Health Plan), Pharma. Each shows average ACV across that customer type plus a count subtitle.
    - Two side-by-side pipeline funnels (one per segment), each with stage count and weighted value bars
+   - Top-right actions: **Import CSV** and **Export All (CSV)**
 
 2. **Payer / Provider Pipeline** (`#view-payer`)
    - Segment stats strip: deals, total ACV, weighted pipeline, total covered members

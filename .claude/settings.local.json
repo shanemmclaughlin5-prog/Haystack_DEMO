@@ -9,7 +9,14 @@
       "Bash(/tmp/ghcli/gh_2.62.0_macOS_arm64/bin/gh --version)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git -c user.email=shane@haystackhealth.local -c 'user.name=Shane McLaughlin' commit -m 'Initial commit: Haystack Health CRM demo *)"
+      "Bash(git -c user.email=shane@haystackhealth.local -c 'user.name=Shane McLaughlin' commit -m 'Initial commit: Haystack Health CRM demo *)",
+      "Bash(curl -sL https://github.com/cli/cli/releases/download/v2.62.0/gh_2.62.0_macOS_amd64.zip -o /tmp/gh2.zip)",
+      "Bash(unzip -q -o /tmp/gh2.zip -d /tmp/ghcli2)",
+      "Read(//tmp/**)",
+      "Bash(/tmp/ghcli2/gh_2.62.0_macOS_amd64/bin/gh --version)",
+      "Bash(export PATH=\"/tmp/ghcli2/gh_2.62.0_macOS_amd64/bin:$PATH\")",
+      "Bash(git -c user.email=shane@haystackhealth.local -c 'user.name=Shane McLaughlin' commit -m 'Add avg customer value KPIs and CSV import tool *)",
+      "Bash(git push *)"
     ]
   }
 }
