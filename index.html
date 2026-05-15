@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Haystack Health — CRM</title>
+<style>
+  /* ============================================
+     HAYSTACK HEALTH CRM — Design System
+     ============================================ */
+  :root {
+    --navy-900: #0A2342;
+    --navy-700: #1B4F8A;
+    --navy-500: #2E86C1;
+    --navy-100: #D6E4F0;
+    --navy-50:  #EEF3F9;
+    --green-600: #1A6E3C;
+    --green-50:  #E6F3EC;
+    --amber-600: #B8761B;
+    --amber-50:  #FBF1DF;
+    --gray-900: #1A1A2E;
+    --gray-700: #44475A;
+    --gray-500: #7A7F92;
+    --gray-300: #C9CDD8;
+    --gray-200: #E2E6EF;
+    --gray-100: #EEF1F6;
+    --surface:  #F4F7FB;
+    --white:    #FFFFFF;
+    --danger:   #B83B3B;
+    --shadow-sm: 0 1px 2px rgba(10, 35, 66, 0.06);
+    --shadow-md: 0 4px 12px rgba(10, 35, 66, 0.08);
+    --shadow-lg: 0 12px 32px rgba(10, 35, 66, 0.16);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: var(--gray-900);
+    background: var(--surface);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  input, select, textarea { font-family: inherit; font-size: 14px; }
+  a { color: var(--navy-700); text-decoration: none; }
+
+  /* ============================================
+     TOP NAVIGATION
+     ============================================ */
+  .topbar {
+    background: var(--navy-900);
+    color: var(--white);
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-mark {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--navy-500), var(--white));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: var(--navy-900);
+    font-size: 18px;
+    letter-spacing: -1px;
+  }
+
+  .brand-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+
+  .brand-name span {
+    color: var(--navy-100);
+    font-weight: 400;
+    margin-left: 6px;
+    font-size: 13px;
+  }
+
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+  }
+
+  .nav-tab {
+    color: rgba(255,255,255,0.7);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+  }
+
+  .nav-tab:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+  .nav-tab.active { color: var(--white); background: rgba(255,255,255,0.14); }
+
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--navy-100);
+    font-size: 13px;
+  }
+
+  .avatar {
+    width: 32px; height: 32px;
+    background: var(--navy-500);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600;
+    color: var(--white);
+    font-size: 13px;
+  }
+
+  /* ============================================
+     LAYOUT
+     ============================================ */
+  .main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy-900);
+    letter-spacing: -0.3px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-top: 4px;
+  }
+
+  /* ============================================
+     CARDS / KPI
+     ============================================ */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .kpi-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-card.featured {
+    background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+    color: var(--white);
+    border-color: transparent;
+  }
+
+  .kpi-card.featured .kpi-label { color: var(--navy-100); }
+  .kpi-card.featured .kpi-sub { color: rgba(255,255,255,0.7); }
+
+  .kpi-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+  }
+
+  .kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 6px;
+  }
+
+  /* ============================================
+     PANELS
+     ============================================ */
+  .panel {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .panel-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .panel-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy-900);
+  }
+
+  .panel-subtitle {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+
+  .panel-body { padding: 22px; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* ============================================
+     PIPELINE FUNNEL CHART
+     ============================================ */
+  .funnel-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 110px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .funnel-row:last-child { margin-bottom: 0; }
+
+  .funnel-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .funnel-count {
+    display: inline-block;
+    min-width: 22px;
+    text-align: center;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .funnel-bar-track {
+    background: var(--gray-100);
+    border-radius: 4px;
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .funnel-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  .funnel-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Stage colors */
+  .stage-prospecting    { background: #C5D5E8; color: #2A4A6E; }
+  .stage-conversation   { background: #7FA6CC; color: #FFFFFF; }
+  .stage-proposal       { background: #3D6FA0; color: #FFFFFF; }
+  .stage-won            { background: var(--green-600); color: #FFFFFF; }
+
+  /* ============================================
+     TABLE
+     ============================================ */
+  .table-toolbar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--navy-50);
+    flex-wrap: wrap;
+  }
+
+  .input {
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    background: var(--white);
+    color: var(--gray-900);
+    transition: all 0.15s ease;
+    height: 36px;
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--navy-500);
+    box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.15);
+  }
+  .input.search { min-width: 240px; padding-left: 34px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237A7F92' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 11px center; }
+
+  select.input { padding-right: 30px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A7F92' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+
+  .toolbar-spacer { flex: 1; }
+
+  .btn {
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--navy-900);
+    color: var(--white);
+  }
+  .btn-primary:hover { background: var(--navy-700); }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--navy-900);
+    border: 1px solid var(--gray-300);
+  }
+  .btn-secondary:hover { border-color: var(--navy-700); color: var(--navy-700); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--gray-500);
+    padding: 6px 8px;
+    height: auto;
+  }
+  .btn-ghost:hover { color: var(--navy-700); background: var(--navy-50); }
+
+  .btn-danger-ghost {
+    color: var(--danger);
+  }
+  .btn-danger-ghost:hover { background: #FBEAEA; color: var(--danger); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    background: var(--white);
+    color: var(--gray-500);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  thead th:hover { color: var(--navy-700); }
+  thead th .sort-ind { color: var(--navy-500); margin-left: 4px; }
+
+  thead th.num, tbody td.num { text-align: right; }
+  thead th.actions, tbody td.actions { text-align: right; width: 1%; white-space: nowrap; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--gray-100);
+    transition: background 0.1s ease;
+  }
+  tbody tr:hover { background: var(--navy-50); }
+  tbody tr:last-child { border-bottom: none; }
+
+  tbody td {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--gray-900);
+    vertical-align: middle;
+  }
+
+  .org-cell { font-weight: 600; color: var(--navy-900); }
+  .org-sub { font-size: 11px; color: var(--gray-500); font-weight: 400; margin-top: 2px; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+
+  .pill-type {
+    background: var(--navy-50);
+    color: var(--navy-700);
+    border: 1px solid var(--navy-100);
+  }
+
+  .money { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .money-strong { color: var(--navy-900); }
+
+  .empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--gray-500);
+  }
+  .empty h3 { color: var(--navy-900); font-size: 16px; margin-bottom: 6px; }
+  .empty p { font-size: 13px; margin-bottom: 16px; }
+
+  /* ============================================
+     MODAL
+     ============================================ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 35, 66, 0.45);
+    z-index: 100;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 60px 20px;
+    overflow-y: auto;
+    backdrop-filter: blur(2px);
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 600px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    animation: modalIn 0.2s ease;
+  }
+  @keyframes modalIn {
+    from { transform: translateY(-12px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-title { font-size: 17px; font-weight: 700; color: var(--navy-900); }
+  .modal-close {
+    color: var(--gray-500);
+    font-size: 20px;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+  }
+  .modal-close:hover { background: var(--gray-100); color: var(--gray-900); }
+
+  .modal-body { padding: 24px; }
+  .modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--gray-200);
+    background: var(--gray-100);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+  }
+  .modal-footer .right { display: flex; gap: 10px; }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+  }
+  .form-row { display: flex; flex-direction: column; }
+  .form-row.full { grid-column: 1 / -1; }
+  .form-row label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .form-row .input { width: 100%; }
+  .form-row textarea.input { height: 70px; padding: 8px 12px; resize: vertical; }
+
+  .calc-row {
+    grid-column: 1 / -1;
+    background: var(--navy-50);
+    border: 1px solid var(--navy-100);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+  }
+  .calc-label { font-size: 12px; color: var(--navy-700); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .calc-value { font-size: 18px; font-weight: 700; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+  .calc-sub { font-size: 11px; color: var(--navy-700); margin-top: 2px; }
+
+  .field-error {
+    color: var(--danger);
+    font-size: 11px;
+    margin-top: 4px;
+    display: none;
+  }
+  .input.error { border-color: var(--danger); }
+  .input.error + .field-error { display: block; }
+
+  /* ============================================
+     VIEW SWITCHING
+     ============================================ */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ============================================
+     SEGMENT BADGE (above table)
+     ============================================ */
+  .segment-stats {
+    display: flex;
+    gap: 24px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 16px 22px;
+    margin-bottom: 16px;
+  }
+  .segment-stat .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-500); font-weight: 600; }
+  .segment-stat .val { font-size: 18px; font-weight: 700; color: var(--navy-900); margin-top: 2px; }
+  .segment-divider { width: 1px; background: var(--gray-200); }
+
+  /* ============================================
+     CONFIRM DIALOG
+     ============================================ */
+  .confirm-text { color: var(--gray-700); font-size: 14px; }
+  .confirm-text strong { color: var(--navy-900); }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 1100px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .main { padding: 20px 14px; }
+    .topbar { padding: 0 16px; }
+    .nav-tabs { display: none; }
+    .form-grid { grid-template-columns: 1fr; }
+    .table-wrap { overflow-x: auto; }
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--navy-900);
+    color: var(--white);
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 200;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.25s ease;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topbar">
+  <div class="brand">
+    <div class="brand-mark">H</div>
+    <div class="brand-name">Haystack Health<span>CRM</span></div>
+  </div>
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-view="dashboard">Dashboard</button>
+    <button class="nav-tab" data-view="payer">Payer / Provider</button>
+    <button class="nav-tab" data-view="sponsor">Sponsor</button>
+  </div>
+  <div class="nav-user">
+    <span id="navUserName">Sales Team</span>
+    <div class="avatar">SM</div>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ========== DASHBOARD ========== -->
+  <section class="view active" id="view-dashboard">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Pipeline Overview</div>
+        <div class="page-subtitle">Combined view across Payer/Provider and Sponsor segments</div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-secondary" id="btnExportAll">Export All (CSV)</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card featured">
+        <div class="kpi-label">Total Weighted Pipeline</div>
+        <div class="kpi-value" id="kpiTotalWeighted">$0</div>
+        <div class="kpi-sub" id="kpiTotalDeals">0 active deals</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Payer / Provider Weighted</div>
+        <div class="kpi-value" id="kpiPayerWeighted">$0</div>
+        <div class="kpi-sub" id="kpiPayerDeals">0 deals</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Sponsor Weighted</div>
+        <div class="kpi-value" id="kpiSponsorWeighted">$0</div>
+        <div class="kpi-sub" id="kpiSponsorDeals">0 deals</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Annual Contract Value</div>
+        <div class="kpi-value" id="kpiTotalACV">$0</div>
+        <div class="kpi-sub">Unweighted across all deals</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Payer / Provider Pipeline</div>
+            <div class="panel-subtitle">Health Plans · ACOs · Health Systems</div>
+          </div>
+          <button class="btn btn-ghost" data-view="payer">View all →</button>
+        </div>
+        <div class="panel-body" id="funnelPayer"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Sponsor Pipeline</div>
+            <div class="panel-subtitle">Pharma · Biotech · CROs</div>
+          </div>
+          <button class="btn btn-ghost" data-view="sponsor">View all →</button>
+        </div>
+        <div class="panel-body" id="funnelSponsor"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PAYER / PROVIDER ========== -->
+  <section class="view" id="view-payer">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Payer / Provider Pipeline</div>
+        <div class="page-subtitle">PMPM revenue model · Health Plans, ACOs, Health Systems</div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-secondary" id="btnExportPayer">Export CSV</button>
+        <button class="btn btn-primary" id="btnAddPayer">+ Add Contact</button>
+      </div>
+    </div>
+
+    <div class="segment-stats" id="statsPayer"></div>
+
+    <div class="panel">
+      <div class="table-toolbar">
+        <input type="text" class="input search" id="searchPayer" placeholder="Search organization or contact..." />
+        <select class="input" id="filterStagePayer">
+          <option value="">All stages</option>
+          <option>Prospecting</option>
+          <option>In Conversation</option>
+          <option>Proposal Sent</option>
+          <option>Closed Won</option>
+        </select>
+        <select class="input" id="filterTypePayer">
+          <option value="">All types</option>
+          <option>Health Plan</option>
+          <option>ACO</option>
+          <option>Health System</option>
+        </select>
+        <div class="toolbar-spacer"></div>
+        <span id="countPayer" style="font-size:12px;color:var(--gray-500);"></span>
+      </div>
+      <div class="table-wrap">
+        <table id="tablePayer">
+          <thead>
+            <tr>
+              <th data-sort="organizationName">Organization</th>
+              <th data-sort="customerType">Type</th>
+              <th data-sort="coveredMembers" class="num">Members</th>
+              <th data-sort="estimatedPMPM" class="num">PMPM</th>
+              <th data-sort="acv" class="num">ACV</th>
+              <th data-sort="stage">Stage</th>
+              <th data-sort="closeProbability" class="num">Prob</th>
+              <th data-sort="weighted" class="num">Weighted</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SPONSOR ========== -->
+  <section class="view" id="view-sponsor">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Sponsor Pipeline</div>
+        <div class="page-subtitle">Per-enrollment revenue model · Pharma, Biotech, CROs</div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-secondary" id="btnExportSponsor">Export CSV</button>
+        <button class="btn btn-primary" id="btnAddSponsor">+ Add Contact</button>
+      </div>
+    </div>
+
+    <div class="segment-stats" id="statsSponsor"></div>
+
+    <div class="panel">
+      <div class="table-toolbar">
+        <input type="text" class="input search" id="searchSponsor" placeholder="Search organization or contact..." />
+        <select class="input" id="filterStageSponsor">
+          <option value="">All stages</option>
+          <option>Prospecting</option>
+          <option>In Conversation</option>
+          <option>Proposal Sent</option>
+          <option>Closed Won</option>
+        </select>
+        <select class="input" id="filterTypeSponsor">
+          <option value="">All types</option>
+          <option>Pharma</option>
+          <option>Biotech</option>
+          <option>CRO</option>
+        </select>
+        <div class="toolbar-spacer"></div>
+        <span id="countSponsor" style="font-size:12px;color:var(--gray-500);"></span>
+      </div>
+      <div class="table-wrap">
+        <table id="tableSponsor">
+          <thead>
+            <tr>
+              <th data-sort="organizationName">Organization</th>
+              <th data-sort="customerType">Type</th>
+              <th data-sort="numberOfTrials" class="num">Trials</th>
+              <th data-sort="expectedEnrollmentsPerTrial" class="num">Enroll/Trial</th>
+              <th data-sort="feePerEnrollment" class="num">Fee</th>
+              <th data-sort="acv" class="num">ACV</th>
+              <th data-sort="stage">Stage</th>
+              <th data-sort="closeProbability" class="num">Prob</th>
+              <th data-sort="weighted" class="num">Weighted</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ========== MODAL ========== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Add Contact</div>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="contactForm" autocomplete="off">
+        <div class="form-grid" id="formFields"></div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <div>
+        <button class="btn btn-ghost btn-danger-ghost" id="btnDelete" style="display:none;">Delete</button>
+      </div>
+      <div class="right">
+        <button class="btn btn-secondary" id="btnCancel">Cancel</button>
+        <button class="btn btn-primary" id="btnSave">Save Contact</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CONFIRM DIALOG ========== -->
+<div class="modal-overlay" id="confirmOverlay">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-header">
+      <div class="modal-title">Delete contact?</div>
+    </div>
+    <div class="modal-body">
+      <p class="confirm-text" id="confirmText">This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+      <div></div>
+      <div class="right">
+        <button class="btn btn-secondary" id="confirmCancel">Cancel</button>
+        <button class="btn btn-primary" id="confirmOk" style="background:var(--danger);">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   HAYSTACK HEALTH CRM — App Logic
+   ============================================================ */
+
+const STAGES = ["Prospecting", "In Conversation", "Proposal Sent", "Closed Won"];
+const STAGE_PROBABILITY = {
+  "Prospecting": 10,
+  "In Conversation": 30,
+  "Proposal Sent": 60,
+  "Closed Won": 100,
+};
+const STAGE_CLASS = {
+  "Prospecting":     "stage-prospecting",
+  "In Conversation": "stage-conversation",
+  "Proposal Sent":   "stage-proposal",
+  "Closed Won":      "stage-won",
+};
+const PAYER_TYPES = ["Health Plan", "ACO", "Health System"];
+const SPONSOR_TYPES = ["Pharma", "Biotech", "CRO"];
+
+const STORAGE_KEY = "haystack_crm_v1";
+
+/* --- State --- */
+let state = {
+  payer: [],
+  sponsor: [],
+  sort: {
+    payer:   { key: "weighted", dir: "desc" },
+    sponsor: { key: "weighted", dir: "desc" },
+  },
+  filters: {
+    payer:   { search: "", stage: "", type: "" },
+    sponsor: { search: "", stage: "", type: "" },
+  },
+};
+
+/* ============================================================
+   PERSISTENCE
+   ============================================================ */
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const data = JSON.parse(raw);
+      state.payer = data.payer || [];
+      state.sponsor = data.sponsor || [];
+      return true;
+    }
+  } catch (e) { console.error(e); }
+  return false;
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    payer: state.payer,
+    sponsor: state.sponsor,
+  }));
+}
+
+function seed() {
+  state.payer = [
+    { id: uid(), organizationName: "Bluegrass Health Plan", contactName: "Megan Carter", contactEmail: "mcarter@bluegrasshp.com", customerType: "Health Plan", coveredMembers: 420000, estimatedPMPM: 1.85, stage: "Proposal Sent", closeProbability: 60, notes: "" },
+    { id: uid(), organizationName: "Cascade ACO Network",   contactName: "David Liu",     contactEmail: "dliu@cascadeaco.org",     customerType: "ACO",         coveredMembers: 85000,  estimatedPMPM: 2.40, stage: "In Conversation", closeProbability: 30, notes: "" },
+    { id: uid(), organizationName: "Northstar Health System", contactName: "Priya Shah",  contactEmail: "pshah@northstarhs.org",  customerType: "Health System", coveredMembers: 220000, estimatedPMPM: 1.50, stage: "Prospecting", closeProbability: 10, notes: "" },
+    { id: uid(), organizationName: "Liberty Mutual Health",  contactName: "Tom Reyes",     contactEmail: "treyes@libertyhealth.com", customerType: "Health Plan", coveredMembers: 1100000, estimatedPMPM: 1.10, stage: "Closed Won", closeProbability: 100, notes: "" },
+    { id: uid(), organizationName: "MidWest Care Alliance",  contactName: "Anna Becker",   contactEmail: "abecker@mwcare.org",     customerType: "ACO", coveredMembers: 56000, estimatedPMPM: 2.90, stage: "In Conversation", closeProbability: 30, notes: "" },
+  ];
+  state.sponsor = [
+    { id: uid(), organizationName: "Veridian Pharma",       contactName: "Robert Hahn",   contactEmail: "rhahn@veridianrx.com",     customerType: "Pharma",  numberOfTrials: 4, expectedEnrollmentsPerTrial: 250, feePerEnrollment: 1800, stage: "Proposal Sent", closeProbability: 60, notes: "" },
+    { id: uid(), organizationName: "Helix Biotech",         contactName: "Sara Klein",    contactEmail: "sklein@helixbio.com",      customerType: "Biotech", numberOfTrials: 2, expectedEnrollmentsPerTrial: 120, feePerEnrollment: 2100, stage: "In Conversation", closeProbability: 30, notes: "" },
+    { id: uid(), organizationName: "Continuum CRO",         contactName: "Marcus Ortiz",  contactEmail: "mortiz@continuumcro.com",  customerType: "CRO",     numberOfTrials: 8, expectedEnrollmentsPerTrial: 180, feePerEnrollment: 1450, stage: "Prospecting", closeProbability: 10, notes: "" },
+    { id: uid(), organizationName: "Arden Therapeutics",    contactName: "Eliza Park",    contactEmail: "epark@ardentx.com",        customerType: "Biotech", numberOfTrials: 1, expectedEnrollmentsPerTrial: 80,  feePerEnrollment: 2400, stage: "Closed Won", closeProbability: 100, notes: "" },
+    { id: uid(), organizationName: "Northpoint Pharma",     contactName: "James OConnell", contactEmail: "jo@northpointrx.com",     customerType: "Pharma",  numberOfTrials: 3, expectedEnrollmentsPerTrial: 200, feePerEnrollment: 1950, stage: "Proposal Sent", closeProbability: 60, notes: "" },
+  ];
+  saveState();
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function uid() { return "id_" + Math.random().toString(36).slice(2, 11) + Date.now().toString(36); }
+
+function fmtMoney(n) {
+  if (n == null || isNaN(n)) return "$0";
+  if (Math.abs(n) >= 1_000_000) return "$" + (n/1_000_000).toFixed(n >= 10_000_000 ? 1 : 2).replace(/\.0+$/, "") + "M";
+  if (Math.abs(n) >= 1_000)     return "$" + (n/1_000).toFixed(n >= 100_000 ? 0 : 1).replace(/\.0+$/, "") + "K";
+  return "$" + Math.round(n).toLocaleString();
+}
+function fmtMoneyFull(n) {
+  return "$" + Math.round(n || 0).toLocaleString();
+}
+function fmtNumber(n) {
+  if (n == null || isNaN(n)) return "0";
+  return Math.round(n).toLocaleString();
+}
+
+function calcPayer(r) {
+  const acv = (Number(r.coveredMembers) || 0) * (Number(r.estimatedPMPM) || 0) * 12;
+  const weighted = acv * ((Number(r.closeProbability) || 0) / 100);
+  return { acv, weighted };
+}
+function calcSponsor(r) {
+  const acv = (Number(r.numberOfTrials) || 0) * (Number(r.expectedEnrollmentsPerTrial) || 0) * (Number(r.feePerEnrollment) || 0);
+  const weighted = acv * ((Number(r.closeProbability) || 0) / 100);
+  return { acv, weighted };
+}
+
+function toast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove("show"), 2200);
+}
+
+function stagePill(stage) {
+  const cls = STAGE_CLASS[stage] || "stage-prospecting";
+  return `<span class="pill ${cls}">${stage}</span>`;
+}
+
+/* ============================================================
+   VIEW SWITCHING
+   ============================================================ */
+function switchView(viewName) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.toggle("active", t.dataset.view === viewName));
+  const target = document.getElementById("view-" + viewName);
+  if (target) target.classList.add("active");
+  renderAll();
+}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+function renderDashboard() {
+  const payerCalcs   = state.payer.map(r => ({ ...r, ...calcPayer(r) }));
+  const sponsorCalcs = state.sponsor.map(r => ({ ...r, ...calcSponsor(r) }));
+
+  const payerWeighted   = payerCalcs.reduce((s, r) => s + r.weighted, 0);
+  const sponsorWeighted = sponsorCalcs.reduce((s, r) => s + r.weighted, 0);
+  const totalWeighted   = payerWeighted + sponsorWeighted;
+
+  const payerACV   = payerCalcs.reduce((s, r) => s + r.acv, 0);
+  const sponsorACV = sponsorCalcs.reduce((s, r) => s + r.acv, 0);
+
+  document.getElementById("kpiTotalWeighted").textContent = fmtMoney(totalWeighted);
+  document.getElementById("kpiTotalDeals").textContent    = (state.payer.length + state.sponsor.length) + " active deals";
+  document.getElementById("kpiPayerWeighted").textContent = fmtMoney(payerWeighted);
+  document.getElementById("kpiPayerDeals").textContent    = state.payer.length + " deals";
+  document.getElementById("kpiSponsorWeighted").textContent = fmtMoney(sponsorWeighted);
+  document.getElementById("kpiSponsorDeals").textContent    = state.sponsor.length + " deals";
+  document.getElementById("kpiTotalACV").textContent      = fmtMoney(payerACV + sponsorACV);
+
+  document.getElementById("funnelPayer").innerHTML   = funnelHTML(payerCalcs);
+  document.getElementById("funnelSponsor").innerHTML = funnelHTML(sponsorCalcs);
+}
+
+function funnelHTML(rows) {
+  // Find the max weighted value across stages to scale the bars
+  const byStage = STAGES.map(stage => {
+    const inStage = rows.filter(r => r.stage === stage);
+    const weighted = inStage.reduce((s, r) => s + r.weighted, 0);
+    return { stage, count: inStage.length, weighted };
+  });
+  const maxW = Math.max(1, ...byStage.map(s => s.weighted));
+
+  if (rows.length === 0) {
+    return `<div class="empty" style="padding:24px 0;"><p>No deals in this pipeline yet.</p></div>`;
+  }
+
+  return byStage.map(s => {
+    const pct = (s.weighted / maxW) * 100;
+    const cls = STAGE_CLASS[s.stage];
+    return `
+      <div class="funnel-row">
+        <div class="funnel-label">${s.stage}<span class="funnel-count">${s.count}</span></div>
+        <div class="funnel-bar-track"><div class="funnel-bar ${cls}" style="width:${Math.max(pct, 2)}%"></div></div>
+        <div class="funnel-value">${fmtMoney(s.weighted)}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+/* ============================================================
+   PAYER TABLE
+   ============================================================ */
+function getPayerRows() {
+  const f = state.filters.payer;
+  const s = state.sort.payer;
+  let rows = state.payer.map(r => ({ ...r, ...calcPayer(r) }));
+
+  if (f.search) {
+    const q = f.search.toLowerCase();
+    rows = rows.filter(r =>
+      (r.organizationName||"").toLowerCase().includes(q) ||
+      (r.contactName||"").toLowerCase().includes(q) ||
+      (r.contactEmail||"").toLowerCase().includes(q)
+    );
+  }
+  if (f.stage) rows = rows.filter(r => r.stage === f.stage);
+  if (f.type)  rows = rows.filter(r => r.customerType === f.type);
+
+  rows.sort((a, b) => {
+    const av = a[s.key], bv = b[s.key];
+    if (typeof av === "number" && typeof bv === "number") return s.dir === "asc" ? av - bv : bv - av;
+    return s.dir === "asc"
+      ? String(av||"").localeCompare(String(bv||""))
+      : String(bv||"").localeCompare(String(av||""));
+  });
+  return rows;
+}
+
+function renderPayer() {
+  const all = state.payer.map(r => ({ ...r, ...calcPayer(r) }));
+  const totalACV = all.reduce((s,r)=>s+r.acv,0);
+  const totalW   = all.reduce((s,r)=>s+r.weighted,0);
+  const totalMembers = all.reduce((s,r)=>s + (Number(r.coveredMembers)||0), 0);
+  document.getElementById("statsPayer").innerHTML = `
+    <div class="segment-stat"><div class="lbl">Deals</div><div class="val">${all.length}</div></div>
+    <div class="segment-divider"></div>
+    <div class="segment-stat"><div class="lbl">Total ACV</div><div class="val">${fmtMoney(totalACV)}</div></div>
+    <div class="segment-divider"></div>
+    <div class="segment-stat"><div class="lbl">Weighted Pipeline</div><div class="val">${fmtMoney(totalW)}</div></div>
+    <div class="segment-divider"></div>
+    <div class="segment-stat"><div class="lbl">Covered Members</div><div class="val">${fmtNumber(totalMembers)}</div></div>
+  `;
+
+  const rows = getPayerRows();
+  document.getElementById("countPayer").textContent = `${rows.length} of ${state.payer.length}`;
+
+  const tbody = document.querySelector("#tablePayer tbody");
+  if (rows.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="9"><div class="empty">
+      <h3>${state.payer.length === 0 ? "No contacts yet" : "No matches"}</h3>
+      <p>${state.payer.length === 0 ? "Add your first Payer/Provider contact to get started." : "Try adjusting your filters."}</p>
+    </div></td></tr>`;
+    renderSortIndicators("tablePayer", "payer");
+    return;
+  }
+
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>
+        <div class="org-cell">${escapeHTML(r.organizationName)}</div>
+        <div class="org-sub">${escapeHTML(r.contactName)} · ${escapeHTML(r.contactEmail)}</div>
+      </td>
+      <td><span class="pill pill-type">${r.customerType}</span></td>
+      <td class="num money">${fmtNumber(r.coveredMembers)}</td>
+      <td class="num money">$${(Number(r.estimatedPMPM)||0).toFixed(2)}</td>
+      <td class="num money money-strong">${fmtMoneyFull(r.acv)}</td>
+      <td>${stagePill(r.stage)}</td>
+      <td class="num money">${r.closeProbability}%</td>
+      <td class="num money money-strong">${fmtMoneyFull(r.weighted)}</td>
+      <td class="actions">
+        <button class="btn btn-ghost" data-edit-payer="${r.id}">Edit</button>
+      </td>
+    </tr>
+  `).join("");
+  renderSortIndicators("tablePayer", "payer");
+
+  tbody.querySelectorAll("[data-edit-payer]").forEach(b => {
+    b.onclick = () => openEditPayer(b.dataset.editPayer);
+  });
+}
+
+/* ============================================================
+   SPONSOR TABLE
+   ============================================================ */
+function getSponsorRows() {
+  const f = state.filters.sponsor;
+  const s = state.sort.sponsor;
+  let rows = state.sponsor.map(r => ({ ...r, ...calcSponsor(r) }));
+
+  if (f.search) {
+    const q = f.search.toLowerCase();
+    rows = rows.filter(r =>
+      (r.organizationName||"").toLowerCase().includes(q) ||
+      (r.contactName||"").toLowerCase().includes(q) ||
+      (r.contactEmail||"").toLowerCase().includes(q)
+    );
+  }
+  if (f.stage) rows = rows.filter(r => r.stage === f.stage);
+  if (f.type)  rows = rows.filter(r => r.customerType === f.type);
+
+  rows.sort((a, b) => {
+    const av = a[s.key], bv = b[s.key];
+    if (typeof av === "number" && typeof bv === "number") return s.dir === "asc" ? av - bv : bv - av;
+    return s.dir === "asc"
+      ? String(av||"").localeCompare(String(bv||""))
+      : String(bv||"").localeCompare(String(av||""));
+  });
+  return rows;
+}
+
+function renderSponsor() {
+  const all = state.sponsor.map(r => ({ ...r, ...calcSponsor(r) }));
+  const totalACV = all.reduce((s,r)=>s+r.acv,0);
+  const totalW   = all.reduce((s,r)=>s+r.weighted,0);
+  const totalEnroll = all.reduce((s,r)=>s + ((Number(r.numberOfTrials)||0) * (Number(r.expectedEnrollmentsPerTrial)||0)), 0);
+  document.getElementById("statsSponsor").innerHTML = `
+    <div class="segment-stat"><div class="lbl">Deals</div><div class="val">${all.length}</div></div>
+    <div class="segment-divider"></div>
+    <div class="segment-stat"><div class="lbl">Total ACV</div><div class="val">${fmtMoney(totalACV)}</div></div>
+    <div class="segment-divider"></div>
+    <div class="segment-stat"><div class="lbl">Weighted Pipeline</div><div class="val">${fmtMoney(totalW)}</div></div>
+    <div class="segment-divider"></div>
+    <div class="segment-stat"><div class="lbl">Expected Enrollments</div><div class="val">${fmtNumber(totalEnroll)}</div></div>
+  `;
+
+  const rows = getSponsorRows();
+  document.getElementById("countSponsor").textContent = `${rows.length} of ${state.sponsor.length}`;
+
+  const tbody = document.querySelector("#tableSponsor tbody");
+  if (rows.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="10"><div class="empty">
+      <h3>${state.sponsor.length === 0 ? "No contacts yet" : "No matches"}</h3>
+      <p>${state.sponsor.length === 0 ? "Add your first Sponsor contact to get started." : "Try adjusting your filters."}</p>
+    </div></td></tr>`;
+    renderSortIndicators("tableSponsor", "sponsor");
+    return;
+  }
+
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>
+        <div class="org-cell">${escapeHTML(r.organizationName)}</div>
+        <div class="org-sub">${escapeHTML(r.contactName)} · ${escapeHTML(r.contactEmail)}</div>
+      </td>
+      <td><span class="pill pill-type">${r.customerType}</span></td>
+      <td class="num money">${fmtNumber(r.numberOfTrials)}</td>
+      <td class="num money">${fmtNumber(r.expectedEnrollmentsPerTrial)}</td>
+      <td class="num money">${fmtMoneyFull(r.feePerEnrollment)}</td>
+      <td class="num money money-strong">${fmtMoneyFull(r.acv)}</td>
+      <td>${stagePill(r.stage)}</td>
+      <td class="num money">${r.closeProbability}%</td>
+      <td class="num money money-strong">${fmtMoneyFull(r.weighted)}</td>
+      <td class="actions">
+        <button class="btn btn-ghost" data-edit-sponsor="${r.id}">Edit</button>
+      </td>
+    </tr>
+  `).join("");
+  renderSortIndicators("tableSponsor", "sponsor");
+
+  tbody.querySelectorAll("[data-edit-sponsor]").forEach(b => {
+    b.onclick = () => openEditSponsor(b.dataset.editSponsor);
+  });
+}
+
+function renderSortIndicators(tableId, segment) {
+  const s = state.sort[segment];
+  document.querySelectorAll(`#${tableId} thead th[data-sort]`).forEach(th => {
+    const ind = th.querySelector(".sort-ind");
+    if (ind) ind.remove();
+    if (th.dataset.sort === s.key) {
+      const span = document.createElement("span");
+      span.className = "sort-ind";
+      span.textContent = s.dir === "asc" ? " ↑" : " ↓";
+      th.appendChild(span);
+    }
+  });
+}
+
+/* ============================================================
+   MODAL / FORM
+   ============================================================ */
+let editingSegment = null; // "payer" | "sponsor"
+let editingId = null;
+
+function openAddPayer() {
+  editingSegment = "payer";
+  editingId = null;
+  document.getElementById("modalTitle").textContent = "Add Payer / Provider Contact";
+  document.getElementById("btnDelete").style.display = "none";
+  renderFormFields({ stage: "Prospecting", closeProbability: 10, customerType: "Health Plan" });
+  showModal();
+}
+function openEditPayer(id) {
+  editingSegment = "payer";
+  editingId = id;
+  const rec = state.payer.find(r => r.id === id);
+  if (!rec) return;
+  document.getElementById("modalTitle").textContent = "Edit Payer / Provider Contact";
+  document.getElementById("btnDelete").style.display = "inline-flex";
+  renderFormFields(rec);
+  showModal();
+}
+function openAddSponsor() {
+  editingSegment = "sponsor";
+  editingId = null;
+  document.getElementById("modalTitle").textContent = "Add Sponsor Contact";
+  document.getElementById("btnDelete").style.display = "none";
+  renderFormFields({ stage: "Prospecting", closeProbability: 10, customerType: "Pharma" });
+  showModal();
+}
+function openEditSponsor(id) {
+  editingSegment = "sponsor";
+  editingId = id;
+  const rec = state.sponsor.find(r => r.id === id);
+  if (!rec) return;
+  document.getElementById("modalTitle").textContent = "Edit Sponsor Contact";
+  document.getElementById("btnDelete").style.display = "inline-flex";
+  renderFormFields(rec);
+  showModal();
+}
+
+function showModal() { document.getElementById("modalOverlay").classList.add("open"); }
+function hideModal() { document.getElementById("modalOverlay").classList.remove("open"); }
+
+function renderFormFields(data) {
+  const seg = editingSegment;
+  const typesOptions = (seg === "payer" ? PAYER_TYPES : SPONSOR_TYPES)
+    .map(t => `<option ${data.customerType === t ? "selected" : ""}>${t}</option>`).join("");
+  const stagesOptions = STAGES.map(s => `<option ${data.stage === s ? "selected" : ""}>${s}</option>`).join("");
+
+  let segFields = "";
+  if (seg === "payer") {
+    segFields = `
+      <div class="form-row">
+        <label>Covered Members</label>
+        <input type="number" min="0" step="1" class="input" name="coveredMembers" value="${data.coveredMembers ?? ""}" required />
+        <div class="field-error">Required</div>
+      </div>
+      <div class="form-row">
+        <label>Estimated PMPM ($)</label>
+        <input type="number" min="0" step="0.01" class="input" name="estimatedPMPM" value="${data.estimatedPMPM ?? ""}" required />
+        <div class="field-error">Required</div>
+      </div>
+    `;
+  } else {
+    segFields = `
+      <div class="form-row">
+        <label>Number of Trials</label>
+        <input type="number" min="0" step="1" class="input" name="numberOfTrials" value="${data.numberOfTrials ?? ""}" required />
+        <div class="field-error">Required</div>
+      </div>
+      <div class="form-row">
+        <label>Expected Enrollments / Trial</label>
+        <input type="number" min="0" step="1" class="input" name="expectedEnrollmentsPerTrial" value="${data.expectedEnrollmentsPerTrial ?? ""}" required />
+        <div class="field-error">Required</div>
+      </div>
+      <div class="form-row full">
+        <label>Fee Per Enrollment ($)</label>
+        <input type="number" min="0" step="1" class="input" name="feePerEnrollment" value="${data.feePerEnrollment ?? ""}" required />
+        <div class="field-error">Required</div>
+      </div>
+    `;
+  }
+
+  document.getElementById("formFields").innerHTML = `
+    <div class="form-row full">
+      <label>Organization Name</label>
+      <input type="text" class="input" name="organizationName" value="${escapeAttr(data.organizationName)}" required />
+      <div class="field-error">Required</div>
+    </div>
+    <div class="form-row">
+      <label>Contact Name</label>
+      <input type="text" class="input" name="contactName" value="${escapeAttr(data.contactName)}" required />
+      <div class="field-error">Required</div>
+    </div>
+    <div class="form-row">
+      <label>Contact Email</label>
+      <input type="email" class="input" name="contactEmail" value="${escapeAttr(data.contactEmail)}" required />
+      <div class="field-error">Valid email required</div>
+    </div>
+    <div class="form-row full">
+      <label>Customer Type</label>
+      <select class="input" name="customerType">${typesOptions}</select>
+    </div>
+    ${segFields}
+    <div class="form-row">
+      <label>Pipeline Stage</label>
+      <select class="input" name="stage">${stagesOptions}</select>
+    </div>
+    <div class="form-row">
+      <label>Close Probability (%)</label>
+      <input type="number" min="0" max="100" step="1" class="input" name="closeProbability" value="${data.closeProbability ?? 10}" />
+    </div>
+    <div class="calc-row">
+      <div>
+        <div class="calc-label">Annual Contract Value</div>
+        <div class="calc-sub" id="calcFormula"></div>
+      </div>
+      <div style="text-align:right;">
+        <div class="calc-value" id="calcACV">$0</div>
+        <div class="calc-sub" style="text-align:right;">Weighted: <span id="calcWeighted">$0</span></div>
+      </div>
+    </div>
+    <div class="form-row full">
+      <label>Notes (optional)</label>
+      <textarea class="input" name="notes" placeholder="Add any deal context, next steps, or call notes...">${escapeAttr(data.notes || "")}</textarea>
+    </div>
+  `;
+
+  // Wire stage -> probability default
+  const form = document.getElementById("contactForm");
+  const stageSel = form.querySelector("[name=stage]");
+  const probInp = form.querySelector("[name=closeProbability]");
+  stageSel.addEventListener("change", () => {
+    probInp.value = STAGE_PROBABILITY[stageSel.value];
+    updateCalc();
+  });
+
+  // Live calc
+  form.querySelectorAll("input, select").forEach(el => {
+    el.addEventListener("input", updateCalc);
+    el.addEventListener("change", updateCalc);
+  });
+  updateCalc();
+}
+
+function updateCalc() {
+  const form = document.getElementById("contactForm");
+  const data = formData(form);
+  let calc, formula;
+  if (editingSegment === "payer") {
+    calc = calcPayer(data);
+    formula = `${fmtNumber(data.coveredMembers)} members × $${(Number(data.estimatedPMPM)||0).toFixed(2)} PMPM × 12 mo`;
+  } else {
+    calc = calcSponsor(data);
+    formula = `${fmtNumber(data.numberOfTrials)} trials × ${fmtNumber(data.expectedEnrollmentsPerTrial)} enroll × ${fmtMoneyFull(data.feePerEnrollment)}`;
+  }
+  document.getElementById("calcACV").textContent = fmtMoneyFull(calc.acv);
+  document.getElementById("calcWeighted").textContent = fmtMoneyFull(calc.weighted);
+  document.getElementById("calcFormula").textContent = formula;
+}
+
+function formData(form) {
+  const fd = new FormData(form);
+  const obj = {};
+  fd.forEach((v, k) => { obj[k] = v; });
+  // Number coercion
+  ["coveredMembers", "estimatedPMPM", "numberOfTrials", "expectedEnrollmentsPerTrial", "feePerEnrollment", "closeProbability"].forEach(k => {
+    if (obj[k] !== undefined) obj[k] = Number(obj[k]);
+  });
+  return obj;
+}
+
+function validateForm() {
+  const form = document.getElementById("contactForm");
+  let valid = true;
+  form.querySelectorAll(".input").forEach(el => el.classList.remove("error"));
+  form.querySelectorAll("[required]").forEach(el => {
+    if (!el.value || (el.type === "number" && isNaN(Number(el.value)))) {
+      el.classList.add("error"); valid = false;
+    }
+    if (el.type === "email") {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) { el.classList.add("error"); valid = false; }
+    }
+  });
+  return valid;
+}
+
+function saveForm() {
+  if (!validateForm()) { toast("Please fix the highlighted fields"); return; }
+  const form = document.getElementById("contactForm");
+  const data = formData(form);
+  const list = editingSegment === "payer" ? state.payer : state.sponsor;
+  if (editingId) {
+    const idx = list.findIndex(r => r.id === editingId);
+    if (idx >= 0) list[idx] = { ...list[idx], ...data, id: editingId, updatedAt: Date.now() };
+    toast("Contact updated");
+  } else {
+    list.push({ id: uid(), createdAt: Date.now(), updatedAt: Date.now(), ...data });
+    toast("Contact added");
+  }
+  saveState();
+  hideModal();
+  renderAll();
+}
+
+function deleteCurrent() {
+  if (!editingId) return;
+  document.getElementById("confirmText").innerHTML =
+    `Delete <strong>${escapeHTML(
+      (editingSegment === "payer" ? state.payer : state.sponsor)
+        .find(r => r.id === editingId)?.organizationName || "this contact"
+    )}</strong>? This cannot be undone.`;
+  document.getElementById("confirmOverlay").classList.add("open");
+  document.getElementById("confirmOk").onclick = () => {
+    if (editingSegment === "payer") {
+      state.payer = state.payer.filter(r => r.id !== editingId);
+    } else {
+      state.sponsor = state.sponsor.filter(r => r.id !== editingId);
+    }
+    saveState();
+    document.getElementById("confirmOverlay").classList.remove("open");
+    hideModal();
+    renderAll();
+    toast("Contact deleted");
+  };
+}
+
+/* ============================================================
+   CSV EXPORT
+   ============================================================ */
+function exportCSV(segment) {
+  let headers, rows;
+  if (segment === "payer") {
+    headers = ["Organization", "Contact", "Email", "Customer Type", "Covered Members", "Estimated PMPM", "Annual Contract Value", "Stage", "Close Probability (%)", "Weighted Pipeline Value", "Notes"];
+    rows = state.payer.map(r => {
+      const c = calcPayer(r);
+      return [r.organizationName, r.contactName, r.contactEmail, r.customerType, r.coveredMembers, r.estimatedPMPM, c.acv, r.stage, r.closeProbability, c.weighted, r.notes || ""];
+    });
+    downloadCSV("haystack-payer-provider.csv", headers, rows);
+  } else if (segment === "sponsor") {
+    headers = ["Organization", "Contact", "Email", "Customer Type", "Number of Trials", "Enrollments per Trial", "Fee per Enrollment", "Annual Contract Value", "Stage", "Close Probability (%)", "Weighted Pipeline Value", "Notes"];
+    rows = state.sponsor.map(r => {
+      const c = calcSponsor(r);
+      return [r.organizationName, r.contactName, r.contactEmail, r.customerType, r.numberOfTrials, r.expectedEnrollmentsPerTrial, r.feePerEnrollment, c.acv, r.stage, r.closeProbability, c.weighted, r.notes || ""];
+    });
+    downloadCSV("haystack-sponsor.csv", headers, rows);
+  } else {
+    // all
+    exportCSV("payer");
+    exportCSV("sponsor");
+    return;
+  }
+  toast("CSV downloaded");
+}
+
+function downloadCSV(filename, headers, rows) {
+  const escape = (v) => {
+    if (v == null) return "";
+    const s = String(v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  const csv = [headers.map(escape).join(","), ...rows.map(r => r.map(escape).join(","))].join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ============================================================
+   UTILS
+   ============================================================ */
+function escapeHTML(s) {
+  if (s == null) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function escapeAttr(s) { return escapeHTML(s); }
+
+/* ============================================================
+   RENDER ALL
+   ============================================================ */
+function renderAll() {
+  renderDashboard();
+  renderPayer();
+  renderSponsor();
+}
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+function wireEvents() {
+  document.getElementById("navTabs").addEventListener("click", e => {
+    const t = e.target.closest(".nav-tab");
+    if (t) switchView(t.dataset.view);
+  });
+  document.querySelectorAll("[data-view]").forEach(el => {
+    if (el.classList.contains("nav-tab")) return;
+    el.addEventListener("click", () => switchView(el.dataset.view));
+  });
+
+  document.getElementById("btnAddPayer").onclick = openAddPayer;
+  document.getElementById("btnAddSponsor").onclick = openAddSponsor;
+  document.getElementById("btnExportPayer").onclick = () => exportCSV("payer");
+  document.getElementById("btnExportSponsor").onclick = () => exportCSV("sponsor");
+  document.getElementById("btnExportAll").onclick = () => exportCSV("all");
+
+  document.getElementById("modalClose").onclick = hideModal;
+  document.getElementById("btnCancel").onclick = hideModal;
+  document.getElementById("btnSave").onclick = saveForm;
+  document.getElementById("btnDelete").onclick = deleteCurrent;
+  document.getElementById("confirmCancel").onclick = () => document.getElementById("confirmOverlay").classList.remove("open");
+
+  document.getElementById("modalOverlay").addEventListener("click", e => {
+    if (e.target.id === "modalOverlay") hideModal();
+  });
+
+  // Filters
+  document.getElementById("searchPayer").addEventListener("input", e => { state.filters.payer.search = e.target.value; renderPayer(); });
+  document.getElementById("filterStagePayer").addEventListener("change", e => { state.filters.payer.stage = e.target.value; renderPayer(); });
+  document.getElementById("filterTypePayer").addEventListener("change", e => { state.filters.payer.type = e.target.value; renderPayer(); });
+  document.getElementById("searchSponsor").addEventListener("input", e => { state.filters.sponsor.search = e.target.value; renderSponsor(); });
+  document.getElementById("filterStageSponsor").addEventListener("change", e => { state.filters.sponsor.stage = e.target.value; renderSponsor(); });
+  document.getElementById("filterTypeSponsor").addEventListener("change", e => { state.filters.sponsor.type = e.target.value; renderSponsor(); });
+
+  // Sort
+  document.querySelectorAll("#tablePayer thead th[data-sort]").forEach(th => {
+    th.addEventListener("click", () => {
+      const k = th.dataset.sort;
+      const s = state.sort.payer;
+      s.dir = s.key === k && s.dir === "desc" ? "asc" : (s.key === k ? "desc" : "desc");
+      s.key = k;
+      renderPayer();
+    });
+  });
+  document.querySelectorAll("#tableSponsor thead th[data-sort]").forEach(th => {
+    th.addEventListener("click", () => {
+      const k = th.dataset.sort;
+      const s = state.sort.sponsor;
+      s.dir = s.key === k && s.dir === "desc" ? "asc" : (s.key === k ? "desc" : "desc");
+      s.key = k;
+      renderSponsor();
+    });
+  });
+
+  // Keyboard
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      hideModal();
+      document.getElementById("confirmOverlay").classList.remove("open");
+    }
+  });
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init() {
+  const hadData = loadState();
+  if (!hadData) seed();
+  wireEvents();
+  renderAll();
+}
+init();
+</script>
+</body>
+</html>
