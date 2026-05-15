@@ -622,6 +622,180 @@
     transition: all 0.25s ease;
   }
   .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ============================================
+     CONTACT DETAIL PAGE
+     ============================================ */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+  }
+  .breadcrumb-link {
+    color: var(--navy-700);
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .breadcrumb-link:hover { text-decoration: underline; }
+  .breadcrumb-sep { color: var(--gray-300); }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .detail-field { display: flex; flex-direction: column; gap: 4px; }
+  .detail-field .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-500); }
+  .detail-field .val { font-size: 15px; color: var(--gray-900); font-weight: 500; }
+  .detail-field .val.big { font-size: 20px; font-weight: 700; color: var(--navy-900); }
+
+  /* ============================================
+     INTERACTION TIMELINE
+     ============================================ */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--gray-200);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -24px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--navy-500);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--navy-100);
+  }
+  .timeline-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 12px;
+  }
+  .timeline-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .timeline-type {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--navy-50);
+    color: var(--navy-700);
+    padding: 2px 8px;
+    border-radius: 100px;
+    border: 1px solid var(--navy-100);
+  }
+  .timeline-date { font-size: 12px; color: var(--gray-500); }
+  .timeline-actions { display: flex; gap: 4px; flex-shrink: 0; }
+  .timeline-notes { font-size: 13px; color: var(--gray-700); line-height: 1.6; }
+  .timeline-nextsteps {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--gray-100);
+    font-size: 12px;
+    color: var(--amber-600);
+  }
+  .timeline-nextsteps strong { font-weight: 600; }
+
+  .log-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy-700);
+    border: 1.5px dashed var(--navy-300, #7AAFD4);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: all 0.15s;
+  }
+  .log-btn:hover { background: var(--navy-50); border-color: var(--navy-500); color: var(--navy-900); }
+
+  /* ============================================
+     NEEDS ATTENTION PAGE
+     ============================================ */
+  .attention-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 16px;
+  }
+  .attention-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    border-left: 4px solid var(--navy-500);
+  }
+  .attention-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); border-left-color: var(--navy-900); }
+  .attention-card.overdue { border-left-color: var(--danger); }
+  .attention-card.fresh { border-left-color: var(--green-600); }
+
+  .attention-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 12px; }
+  .attention-org { font-size: 15px; font-weight: 700; color: var(--navy-900); }
+  .attention-type { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+  .attention-acv { text-align: right; flex-shrink: 0; }
+  .attention-acv .weighted { font-size: 16px; font-weight: 700; color: var(--navy-900); }
+  .attention-acv .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--gray-500); }
+
+  .attention-card-body { display: flex; flex-direction: column; gap: 6px; }
+  .attention-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-700); }
+  .attention-row .key { color: var(--gray-500); font-weight: 500; }
+  .last-touch { font-size: 12px; padding: 4px 10px; border-radius: 100px; display: inline-flex; align-items: center; gap: 5px; font-weight: 600; margin-top: 4px; }
+  .last-touch.never { background: #FBEAEA; color: var(--danger); }
+  .last-touch.old { background: var(--amber-50); color: var(--amber-600); }
+  .last-touch.recent { background: var(--green-50); color: var(--green-600); }
+
+  .attention-nextsteps {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--gray-100);
+    font-size: 12px;
+    color: var(--gray-700);
+    font-style: italic;
+  }
+  .attention-nextsteps strong { font-style: normal; color: var(--amber-600); font-size: 10px; text-transform: uppercase; letter-spacing: 0.4px; display: block; margin-bottom: 2px; }
+
+  .attention-contact { font-size: 12px; color: var(--gray-500); margin-top: 6px; }
+
+  .segment-badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 7px;
+    border-radius: 100px;
+  }
+  .segment-badge.payer { background: var(--navy-50); color: var(--navy-700); border: 1px solid var(--navy-100); }
+  .segment-badge.sponsor { background: var(--amber-50); color: var(--amber-600); border: 1px solid #F0D5A8; }
 </style>
 </head>
 <body>
@@ -636,6 +810,7 @@
     <button class="nav-tab active" data-view="dashboard">Dashboard</button>
     <button class="nav-tab" data-view="payer">Payer / Provider</button>
     <button class="nav-tab" data-view="sponsor">Sponsor</button>
+    <button class="nav-tab" data-view="attention">Needs Attention</button>
   </div>
   <div class="nav-user">
     <span id="navUserName">Sales Team</span>
@@ -835,6 +1010,30 @@
     </div>
   </section>
 
+
+  <!-- ========== CONTACT DETAIL ========== -->
+  <section class="view" id="view-contact">
+    <div class="breadcrumb">
+      <span class="breadcrumb-link" id="contactBackLink">← Back</span>
+      <span class="breadcrumb-sep">/</span>
+      <span id="contactBreadcrumbSegment"></span>
+      <span class="breadcrumb-sep">/</span>
+      <span id="contactBreadcrumbName" style="color:var(--gray-900);font-weight:600;"></span>
+    </div>
+    <div id="contactDetailContent"></div>
+  </section>
+
+  <!-- ========== NEEDS ATTENTION ========== -->
+  <section class="view" id="view-attention">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Needs Attention</div>
+        <div class="page-subtitle">Deals in Proposal Sent stage — review and log your next interaction</div>
+      </div>
+    </div>
+    <div id="attentionContent"></div>
+  </section>
+
 </main>
 
 <!-- ========== MODAL ========== -->
@@ -935,6 +1134,52 @@
   </div>
 </div>
 
+<!-- ========== LOG INTERACTION MODAL ========== -->
+<div class="modal-overlay" id="interactionOverlay">
+  <div class="modal" style="max-width:580px;">
+    <div class="modal-header">
+      <div class="modal-title" id="interactionModalTitle">Log Interaction</div>
+      <button class="modal-close" id="interactionClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="interactionForm" autocomplete="off">
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Date</label>
+            <input type="date" class="input" name="date" id="interactionDate" required />
+          </div>
+          <div class="form-row">
+            <label>Type</label>
+            <select class="input" name="type">
+              <option>Call</option>
+              <option>Email</option>
+              <option>Meeting</option>
+              <option>Demo</option>
+              <option>Follow-up</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-row full">
+            <label>Notes</label>
+            <textarea class="input" name="notes" style="height:90px;" placeholder="What was discussed? What happened?" required></textarea>
+          </div>
+          <div class="form-row full">
+            <label>Next Steps</label>
+            <textarea class="input" name="nextSteps" style="height:60px;" placeholder="What needs to happen next? Who owns it?"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <div><button class="btn btn-ghost btn-danger-ghost" id="interactionDeleteBtn" style="display:none;">Delete</button></div>
+      <div class="right">
+        <button class="btn btn-secondary" id="interactionCancel">Cancel</button>
+        <button class="btn btn-primary" id="interactionSave">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -958,12 +1203,13 @@ const STAGE_CLASS = {
 const PAYER_TYPES = ["Health Plan", "ACO", "Health System"];
 const SPONSOR_TYPES = ["Pharma", "Biotech", "CRO"];
 
-const STORAGE_KEY = "haystack_crm_v2";
+const STORAGE_KEY = "haystack_crm_v3";
 
 /* --- State --- */
 let state = {
   payer: [],
   sponsor: [],
+  interactions: [],
   sort: {
     payer:   { key: "weighted", dir: "desc" },
     sponsor: { key: "weighted", dir: "desc" },
@@ -984,6 +1230,7 @@ function loadState() {
       const data = JSON.parse(raw);
       state.payer = data.payer || [];
       state.sponsor = data.sponsor || [];
+      state.interactions = data.interactions || [];
       return true;
     }
   } catch (e) { console.error(e); }
@@ -994,6 +1241,7 @@ function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({
     payer: state.payer,
     sponsor: state.sponsor,
+    interactions: state.interactions,
   }));
 }
 
@@ -1256,7 +1504,7 @@ function renderPayer() {
   tbody.innerHTML = rows.map(r => `
     <tr>
       <td>
-        <div class="org-cell">${escapeHTML(r.organizationName)}</div>
+        <div class="org-cell"><span class="org-link" data-open-contact="${r.id}" data-open-segment="payer" style="cursor:pointer;color:var(--navy-700);border-bottom:1px solid transparent;" onmouseover="this.style.borderBottomColor='var(--navy-700)'" onmouseout="this.style.borderBottomColor='transparent'">${escapeHTML(r.organizationName)}</span></div>
         <div class="org-sub">${escapeHTML(r.contactName)} · ${escapeHTML(r.contactEmail)}</div>
       </td>
       <td><span class="pill pill-type">${r.customerType}</span></td>
@@ -1273,6 +1521,9 @@ function renderPayer() {
   `).join("");
   renderSortIndicators("tablePayer", "payer");
 
+  tbody.querySelectorAll(".org-link").forEach(el => {
+    el.onclick = () => openContact(el.dataset.openContact, "payer");
+  });
   tbody.querySelectorAll("[data-edit-payer]").forEach(b => {
     b.onclick = () => openEditPayer(b.dataset.editPayer);
   });
@@ -1338,7 +1589,7 @@ function renderSponsor() {
   tbody.innerHTML = rows.map(r => `
     <tr>
       <td>
-        <div class="org-cell">${escapeHTML(r.organizationName)}</div>
+        <div class="org-cell"><span class="org-link" data-open-contact="${r.id}" data-open-segment="sponsor" style="cursor:pointer;color:var(--navy-700);border-bottom:1px solid transparent;" onmouseover="this.style.borderBottomColor='var(--navy-700)'" onmouseout="this.style.borderBottomColor='transparent'">${escapeHTML(r.organizationName)}</span></div>
         <div class="org-sub">${escapeHTML(r.contactName)} · ${escapeHTML(r.contactEmail)}</div>
       </td>
       <td><span class="pill pill-type">${r.customerType}</span></td>
@@ -1356,6 +1607,9 @@ function renderSponsor() {
   `).join("");
   renderSortIndicators("tableSponsor", "sponsor");
 
+  tbody.querySelectorAll(".org-link").forEach(el => {
+    el.onclick = () => openContact(el.dataset.openContact, "sponsor");
+  });
   tbody.querySelectorAll("[data-edit-sponsor]").forEach(b => {
     b.onclick = () => openEditSponsor(b.dataset.editSponsor);
   });
@@ -1847,12 +2101,282 @@ function escapeHTML(s) {
 function escapeAttr(s) { return escapeHTML(s); }
 
 /* ============================================================
+   CONTACT DETAIL + INTERACTIONS
+   ============================================================ */
+
+// currentContact tracks which contact detail page is open
+let currentContact = null; // { id, segment, returnView }
+let editingInteractionId = null;
+
+function openContact(id, segment, returnView) {
+  currentContact = { id, segment, returnView: returnView || segment };
+  document.getElementById("contactBackLink").textContent = "← Back to " + (segment === "payer" ? "Payer / Provider" : "Sponsor");
+  document.getElementById("contactBreadcrumbSegment").textContent = segment === "payer" ? "Payer / Provider" : "Sponsor";
+  renderContactDetail();
+  // Switch view without using switchView (to avoid re-rendering all)
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+  document.getElementById("view-contact").classList.add("active");
+}
+
+function renderContactDetail() {
+  if (!currentContact) return;
+  const { id, segment } = currentContact;
+  const list = segment === "payer" ? state.payer : state.sponsor;
+  const rec = list.find(r => r.id === id);
+  if (!rec) return;
+
+  const calc = segment === "payer" ? calcPayer(rec) : calcSponsor(rec);
+  document.getElementById("contactBreadcrumbName").textContent = rec.organizationName;
+
+  const interactions = state.interactions
+    .filter(i => i.contactId === id)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  let fieldsHTML = "";
+  if (segment === "payer") {
+    fieldsHTML = `
+      <div class="detail-field"><div class="lbl">Customer Type</div><div class="val">${rec.customerType}</div></div>
+      <div class="detail-field"><div class="lbl">Covered Members</div><div class="val">${fmtNumber(rec.coveredMembers)}</div></div>
+      <div class="detail-field"><div class="lbl">Estimated PMPM</div><div class="val">$${(Number(rec.estimatedPMPM)||0).toFixed(2)}</div></div>
+    `;
+  } else {
+    fieldsHTML = `
+      <div class="detail-field"><div class="lbl">Customer Type</div><div class="val">${rec.customerType}</div></div>
+      <div class="detail-field"><div class="lbl">Trials × Enrollments</div><div class="val">${fmtNumber(rec.numberOfTrials)} × ${fmtNumber(rec.expectedEnrollmentsPerTrial)}</div></div>
+      <div class="detail-field"><div class="lbl">Fee per Enrollment</div><div class="val">${fmtMoneyFull(rec.feePerEnrollment)}</div></div>
+    `;
+  }
+
+  const timelineHTML = interactions.length === 0
+    ? `<div style="color:var(--gray-500);font-size:13px;padding:16px 0;">No interactions logged yet.</div>`
+    : interactions.map(i => `
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-meta">
+                <span class="timeline-type">${i.type}</span>
+                <span class="timeline-date">${formatDate(i.date)}</span>
+              </div>
+              <div class="timeline-actions">
+                <button class="btn btn-ghost" style="font-size:12px;padding:4px 8px;" data-edit-interaction="${i.id}">Edit</button>
+              </div>
+            </div>
+            <div class="timeline-notes">${escapeHTML(i.notes)}</div>
+            ${i.nextSteps ? `<div class="timeline-nextsteps"><strong>Next steps:</strong> ${escapeHTML(i.nextSteps)}</div>` : ""}
+          </div>
+        </div>
+      `).join("");
+
+  document.getElementById("contactDetailContent").innerHTML = `
+    <div class="page-header">
+      <div>
+        <div class="page-title">${escapeHTML(rec.organizationName)}</div>
+        <div class="page-subtitle">${escapeHTML(rec.contactName)} · <a href="mailto:${escapeAttr(rec.contactEmail)}">${escapeHTML(rec.contactEmail)}</a></div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-secondary" id="detailEditBtn">Edit Contact</button>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">Contact Details</div></div>
+        <div class="panel-body">
+          <div class="detail-grid" style="grid-template-columns:1fr 1fr 1fr;">
+            ${fieldsHTML}
+            <div class="detail-field"><div class="lbl">Annual Contract Value</div><div class="val big">${fmtMoneyFull(calc.acv)}</div></div>
+            <div class="detail-field"><div class="lbl">Pipeline Stage</div><div class="val">${stagePill(rec.stage)}</div></div>
+            <div class="detail-field"><div class="lbl">Weighted Value</div><div class="val big">${fmtMoneyFull(calc.weighted)}</div></div>
+          </div>
+          ${rec.notes ? `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--gray-100);font-size:13px;color:var(--gray-700);line-height:1.6;">${escapeHTML(rec.notes)}</div>` : ""}
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header" style="justify-content:space-between;">
+          <div class="panel-title">Interaction Log <span style="font-size:12px;font-weight:400;color:var(--gray-500);margin-left:6px;">${interactions.length} entries</span></div>
+        </div>
+        <div class="panel-body" style="max-height:340px;overflow-y:auto;">
+          <button class="log-btn" id="logInteractionBtn">+ Log Interaction</button>
+          <div class="timeline">${timelineHTML}</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Wire detail page buttons
+  document.getElementById("detailEditBtn").onclick = () => {
+    if (segment === "payer") openEditPayer(id);
+    else openEditSponsor(id);
+  };
+  document.getElementById("logInteractionBtn").onclick = () => openLogInteraction(id, null);
+  document.querySelectorAll("[data-edit-interaction]").forEach(b => {
+    b.onclick = () => openLogInteraction(id, b.dataset.editInteraction);
+  });
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr + "T12:00:00");
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function daysSince(dateStr) {
+  if (!dateStr) return null;
+  const d = new Date(dateStr + "T12:00:00");
+  const now = new Date();
+  return Math.floor((now - d) / (1000 * 60 * 60 * 24));
+}
+
+function openLogInteraction(contactId, interactionId) {
+  editingInteractionId = interactionId || null;
+  const form = document.getElementById("interactionForm");
+
+  if (interactionId) {
+    const existing = state.interactions.find(i => i.id === interactionId);
+    if (existing) {
+      form.querySelector("[name=date]").value = existing.date;
+      form.querySelector("[name=type]").value = existing.type;
+      form.querySelector("[name=notes]").value = existing.notes;
+      form.querySelector("[name=nextSteps]").value = existing.nextSteps || "";
+      document.getElementById("interactionModalTitle").textContent = "Edit Interaction";
+      document.getElementById("interactionDeleteBtn").style.display = "inline-flex";
+    }
+  } else {
+    form.reset();
+    const today = new Date().toISOString().split("T")[0];
+    form.querySelector("[name=date]").value = today;
+    document.getElementById("interactionModalTitle").textContent = "Log Interaction";
+    document.getElementById("interactionDeleteBtn").style.display = "none";
+  }
+
+  // Store contactId on the save button for retrieval
+  document.getElementById("interactionSave").dataset.contactId = contactId;
+  document.getElementById("interactionOverlay").classList.add("open");
+}
+
+function saveInteraction() {
+  const form = document.getElementById("interactionForm");
+  const contactId = document.getElementById("interactionSave").dataset.contactId;
+  const notes = form.querySelector("[name=notes]").value.trim();
+  if (!notes) { toast("Please add notes"); return; }
+
+  const data = {
+    contactId,
+    date:      form.querySelector("[name=date]").value,
+    type:      form.querySelector("[name=type]").value,
+    notes,
+    nextSteps: form.querySelector("[name=nextSteps]").value.trim(),
+  };
+
+  if (editingInteractionId) {
+    const idx = state.interactions.findIndex(i => i.id === editingInteractionId);
+    if (idx >= 0) state.interactions[idx] = { ...state.interactions[idx], ...data, updatedAt: Date.now() };
+    toast("Interaction updated");
+  } else {
+    state.interactions.push({ id: uid(), createdAt: Date.now(), ...data });
+    toast("Interaction logged");
+  }
+
+  saveState();
+  document.getElementById("interactionOverlay").classList.remove("open");
+  renderContactDetail();
+  renderAttention();
+}
+
+function deleteInteraction() {
+  if (!editingInteractionId) return;
+  state.interactions = state.interactions.filter(i => i.id !== editingInteractionId);
+  saveState();
+  document.getElementById("interactionOverlay").classList.remove("open");
+  renderContactDetail();
+  renderAttention();
+  toast("Interaction deleted");
+}
+
+/* ============================================================
+   NEEDS ATTENTION
+   ============================================================ */
+function renderAttention() {
+  const payerCalcs   = state.payer.map(r => ({ ...r, ...calcPayer(r),   segment: "payer"   }));
+  const sponsorCalcs = state.sponsor.map(r => ({ ...r, ...calcSponsor(r), segment: "sponsor" }));
+  const all = [...payerCalcs, ...sponsorCalcs].filter(r => r.stage === "Proposal Sent");
+
+  // Sort: never-touched first, then by days since last interaction desc, then by weighted value desc
+  const withTouch = all.map(r => {
+    const interactions = state.interactions
+      .filter(i => i.contactId === r.id)
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+    const lastInteraction = interactions[0] || null;
+    const days = lastInteraction ? daysSince(lastInteraction.date) : null;
+    return { ...r, lastInteraction, daysSince: days };
+  });
+
+  withTouch.sort((a, b) => {
+    if (a.daysSince === null && b.daysSince !== null) return -1;
+    if (b.daysSince === null && a.daysSince !== null) return 1;
+    if (a.daysSince !== b.daysSince) return (b.daysSince || 0) - (a.daysSince || 0);
+    return b.weighted - a.weighted;
+  });
+
+  const el = document.getElementById("attentionContent");
+  if (!el) return;
+
+  if (withTouch.length === 0) {
+    el.innerHTML = `<div class="empty"><h3>No deals in Proposal Sent</h3><p>Move a deal to "Proposal Sent" stage and it will appear here for tracking.</p></div>`;
+    return;
+  }
+
+  el.innerHTML = `<div class="attention-grid">${withTouch.map(r => {
+    const touchClass = r.daysSince === null ? "never" : r.daysSince > 14 ? "old" : "recent";
+    const touchLabel = r.daysSince === null
+      ? "Never contacted"
+      : r.daysSince === 0 ? "Contacted today"
+      : r.daysSince === 1 ? "1 day ago"
+      : `${r.daysSince} days ago`;
+    const cardClass  = r.daysSince === null ? "overdue" : r.daysSince > 14 ? "overdue" : "fresh";
+    const segLabel   = r.segment === "payer" ? "Payer / Provider" : "Sponsor";
+    const segClass   = r.segment === "payer" ? "payer" : "sponsor";
+    const nextSteps  = r.lastInteraction?.nextSteps || "";
+
+    return `
+      <div class="attention-card ${cardClass}" data-open-contact="${r.id}" data-open-segment="${r.segment}">
+        <div class="attention-card-header">
+          <div>
+            <div class="attention-org">${escapeHTML(r.organizationName)}</div>
+            <div class="attention-type">${r.customerType} · <span class="segment-badge ${segClass}">${segLabel}</span></div>
+          </div>
+          <div class="attention-acv">
+            <div class="weighted">${fmtMoney(r.weighted)}</div>
+            <div class="label">Weighted</div>
+          </div>
+        </div>
+        <div class="attention-card-body">
+          <div class="attention-row"><span class="key">Annual Contract Value</span><span>${fmtMoneyFull(r.acv)}</span></div>
+          <div class="attention-row"><span class="key">Close Probability</span><span>${r.closeProbability}%</span></div>
+          <span class="last-touch ${touchClass}">⏱ Last interaction: ${touchLabel}</span>
+        </div>
+        ${nextSteps ? `<div class="attention-nextsteps"><strong>Next Steps</strong>${escapeHTML(nextSteps)}</div>` : ""}
+        <div class="attention-contact">${escapeHTML(r.contactName)} · ${escapeHTML(r.contactEmail)}</div>
+      </div>
+    `;
+  }).join("")}</div>`;
+
+  el.querySelectorAll("[data-open-contact]").forEach(card => {
+    card.onclick = () => openContact(card.dataset.openContact, card.dataset.openSegment, "attention");
+  });
+}
+
+/* ============================================================
    RENDER ALL
    ============================================================ */
 function renderAll() {
   renderDashboard();
   renderPayer();
   renderSponsor();
+  renderAttention();
 }
 
 /* ============================================================
@@ -1891,6 +2415,21 @@ function wireEvents() {
   document.getElementById("importConfirm").onclick = confirmImport;
   document.getElementById("importOverlay").addEventListener("click", e => {
     if (e.target.id === "importOverlay") closeImport();
+  });
+
+  // Contact detail back
+  document.getElementById("contactBackLink").onclick = () => {
+    if (currentContact) switchView(currentContact.returnView);
+    else switchView("dashboard");
+  };
+
+  // Interaction modal
+  document.getElementById("interactionClose").onclick = () => document.getElementById("interactionOverlay").classList.remove("open");
+  document.getElementById("interactionCancel").onclick = () => document.getElementById("interactionOverlay").classList.remove("open");
+  document.getElementById("interactionSave").onclick = saveInteraction;
+  document.getElementById("interactionDeleteBtn").onclick = deleteInteraction;
+  document.getElementById("interactionOverlay").addEventListener("click", e => {
+    if (e.target.id === "interactionOverlay") document.getElementById("interactionOverlay").classList.remove("open");
   });
 
   document.getElementById("modalClose").onclick = hideModal;
@@ -1937,6 +2476,7 @@ function wireEvents() {
       hideModal();
       document.getElementById("confirmOverlay").classList.remove("open");
       closeImport();
+      document.getElementById("interactionOverlay").classList.remove("open");
     }
   });
 }
