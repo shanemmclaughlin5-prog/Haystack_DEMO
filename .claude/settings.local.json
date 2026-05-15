@@ -19,7 +19,9 @@
       "Bash(git push *)",
       "Bash(git -c user.email=shane@haystackhealth.local -c 'user.name=Shane McLaughlin' commit -m 'Load real pipeline data from CSVs *)",
       "Bash(git -c user.email=shane@haystackhealth.local -c 'user.name=Shane McLaughlin' commit -m ' *)",
-      "Bash(git -c user.email=shane@haystackhealth.local -c 'user.name=Shane McLaughlin' commit -m 'Add realistic stage distribution and interaction history *)"
+      "Bash(git -c user.email=shane@haystackhealth.local -c 'user.name=Shane McLaughlin' commit -m 'Add realistic stage distribution and interaction history *)",
+      "Bash(node -e ' *)",
+      "Bash(git -c user.email=shane@haystackhealth.local -c 'user.name=Shane McLaughlin' commit -m 'Add 5 major features: healthcare intel, CMS calendar, forecasting, priority score, kanban board *)"
     ]
   }
 }

@@ -796,6 +796,255 @@
   }
   .segment-badge.payer { background: var(--navy-50); color: var(--navy-700); border: 1px solid var(--navy-100); }
   .segment-badge.sponsor { background: var(--amber-50); color: var(--amber-600); border: 1px solid #F0D5A8; }
+
+  /* ============================================
+     HEALTHCARE INTEL PILLS
+     ============================================ */
+  .intel-cell { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; max-width: 180px; }
+  .intel-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .intel-star { background: #FEF6D9; color: #8A5A00; border: 1px solid #F2D875; }
+  .intel-year { background: var(--gray-100); color: var(--gray-700); border: 1px solid var(--gray-200); }
+  .intel-risk { background: var(--navy-50); color: var(--navy-700); border: 1px solid var(--navy-100); }
+  .intel-risk.cap  { background: #E6F3EC; color: var(--green-600); border-color: #BCE0CB; }
+  .intel-risk.ffs  { background: var(--gray-100); color: var(--gray-700); border-color: var(--gray-200); }
+  .intel-risk.ss   { background: var(--amber-50); color: var(--amber-600); border-color: #F0D5A8; }
+  .intel-risk.tsr  { background: #FBEAEA; color: var(--danger); border-color: #F2C2C2; }
+
+  .intel-detail-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  /* ============================================
+     CMS REGULATORY CALENDAR
+     ============================================ */
+  .cms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 1100px) { .cms-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 720px)  { .cms-grid { grid-template-columns: 1fr; } }
+
+  .cms-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    border-left: 4px solid var(--gray-300);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cms-card.deadline   { border-left-color: var(--danger); }
+  .cms-card.milestone  { border-left-color: var(--navy-700); }
+  .cms-card.enrollment { border-left-color: var(--amber-600); }
+  .cms-card.past       { opacity: 0.55; }
+
+  .cms-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .cms-date { font-size: 12px; font-weight: 700; color: var(--navy-900); letter-spacing: 0.2px; }
+  .cms-until { font-size: 11px; color: var(--gray-500); font-weight: 600; }
+  .cms-title { font-size: 13px; font-weight: 700; color: var(--navy-900); line-height: 1.35; }
+  .cms-desc  { font-size: 11px; color: var(--gray-700); line-height: 1.5; }
+  .cms-badge {
+    display: inline-block;
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 2px 7px; border-radius: 100px; align-self: flex-start;
+  }
+  .cms-badge.deadline   { background: #FBEAEA; color: var(--danger); }
+  .cms-badge.milestone  { background: var(--navy-50); color: var(--navy-700); }
+  .cms-badge.enrollment { background: var(--amber-50); color: var(--amber-600); }
+  .cms-warn-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #FBEAEA; color: var(--danger);
+    padding: 3px 8px; border-radius: 100px; border: 1px solid #F2C2C2;
+    font-size: 10px; font-weight: 700;
+    margin-top: 4px;
+  }
+
+  /* ============================================
+     PRIORITY LIST
+     ============================================ */
+  .priority-list { display: flex; flex-direction: column; gap: 8px; }
+  .priority-row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto auto;
+    gap: 14px;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .priority-row:hover { border-color: var(--navy-500); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+  .priority-rank {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--navy-50);
+    color: var(--navy-900);
+    border: 1px solid var(--navy-100);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px;
+  }
+  .priority-rank.top3 { background: linear-gradient(135deg, var(--navy-900), var(--navy-700)); color: var(--white); border-color: transparent; }
+  .priority-main { min-width: 0; }
+  .priority-org { font-size: 13px; font-weight: 700; color: var(--navy-900); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .priority-why { font-size: 11px; color: var(--gray-500); margin-top: 3px; }
+  .priority-value { font-size: 14px; font-weight: 700; color: var(--navy-900); font-variant-numeric: tabular-nums; text-align: right; }
+  .priority-value .sub { display: block; font-size: 10px; color: var(--gray-500); font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  /* ============================================
+     FORECASTING
+     ============================================ */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 1100px) { .scenario-grid { grid-template-columns: 1fr; } }
+  .scenario-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-sm);
+  }
+  .scenario-card.featured {
+    background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+    color: var(--white);
+    border-color: transparent;
+  }
+  .scenario-card.featured .scenario-sub,
+  .scenario-card.featured .scenario-formula { color: rgba(255,255,255,0.78); }
+  .scenario-card.featured .scenario-label { color: var(--navy-100); }
+  .scenario-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gray-500); margin-bottom: 8px; }
+  .scenario-value { font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+  .scenario-sub { font-size: 13px; color: var(--gray-700); margin-top: 8px; }
+  .scenario-formula { font-size: 11px; color: var(--gray-500); margin-top: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  .coverage-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 100px;
+    font-size: 12px; font-weight: 700;
+  }
+  .coverage-pill.red    { background: #FBEAEA; color: var(--danger); }
+  .coverage-pill.amber  { background: var(--amber-50); color: var(--amber-600); }
+  .coverage-pill.green  { background: var(--green-50); color: var(--green-600); }
+
+  .target-input {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy-900);
+    padding: 10px 14px;
+    height: auto;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* ============================================
+     KANBAN BOARD
+     ============================================ */
+  .kanban-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 1100px) { .kanban-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 720px)  { .kanban-grid { grid-template-columns: 1fr; } }
+
+  .kanban-col {
+    background: var(--gray-100);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    border: 1px solid var(--gray-200);
+    transition: background 0.15s ease;
+  }
+  .kanban-col.drag-over { background: var(--navy-50); border-color: var(--navy-500); }
+
+  .kanban-col-header {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--gray-200);
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
+  }
+  .kanban-col-header.stage-prospecting    { background: #DCE6F1; }
+  .kanban-col-header.stage-conversation   { background: #C5DAF0; }
+  .kanban-col-header.stage-proposal       { background: #B0CDEB; }
+  .kanban-col-header.stage-won            { background: #D5ECDE; }
+
+  .kanban-col-title { font-size: 13px; font-weight: 700; color: var(--navy-900); display: flex; justify-content: space-between; align-items: center; }
+  .kanban-col-meta  { font-size: 11px; color: var(--gray-700); margin-top: 4px; display: flex; justify-content: space-between; }
+
+  .kanban-cards {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 70vh;
+    overflow-y: auto;
+    min-height: 60px;
+  }
+
+  .kanban-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 11px 12px;
+    cursor: grab;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kanban-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+  .kanban-card:active { cursor: grabbing; }
+  .kanban-card.dragging { opacity: 0.4; }
+  .kanban-card-org { font-size: 13px; font-weight: 700; color: var(--navy-900); line-height: 1.3; }
+  .kanban-card-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .kanban-card-type { font-size: 11px; color: var(--gray-500); }
+  .kanban-card-money { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .kanban-card-weighted { font-size: 15px; font-weight: 700; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+  .kanban-card-acv { font-size: 11px; color: var(--gray-500); font-variant-numeric: tabular-nums; }
+  .kanban-card-touch {
+    font-size: 10px; padding: 2px 7px; border-radius: 100px;
+    font-weight: 600; align-self: flex-start;
+  }
+  .kanban-card-touch.recent { background: var(--green-50); color: var(--green-600); }
+  .kanban-card-touch.warm   { background: var(--amber-50); color: var(--amber-600); }
+  .kanban-card-touch.cold   { background: #FBEAEA; color: var(--danger); }
+  .kanban-card-touch.never  { background: var(--gray-100); color: var(--gray-700); }
+  .kanban-card-intel { display: flex; gap: 4px; flex-wrap: wrap; }
+
+  .board-filter-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 0;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
 </style>
 </head>
 <body>
@@ -810,6 +1059,8 @@
     <button class="nav-tab active" data-view="dashboard">Dashboard</button>
     <button class="nav-tab" data-view="payer">Payer / Provider</button>
     <button class="nav-tab" data-view="sponsor">Sponsor</button>
+    <button class="nav-tab" data-view="board">Pipeline Board</button>
+    <button class="nav-tab" data-view="forecasting">Forecasting</button>
     <button class="nav-tab" data-view="attention">Needs Attention</button>
   </div>
   <div class="nav-user">
@@ -897,6 +1148,26 @@
         <div class="panel-body" id="funnelSponsor"></div>
       </div>
     </div>
+
+    <div class="panel" style="margin-top:20px;">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">CMS Regulatory Calendar</div>
+          <div class="panel-subtitle">Upcoming Medicare Advantage milestones and deadlines</div>
+        </div>
+      </div>
+      <div class="panel-body" id="cmsCalendar"></div>
+    </div>
+
+    <div class="panel" style="margin-top:20px;">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Top 10 Priorities — Focus Here This Week</div>
+          <div class="panel-subtitle">Ranked by deal value, stage, recency, and momentum</div>
+        </div>
+      </div>
+      <div class="panel-body" id="priorityList"></div>
+    </div>
   </section>
 
   <!-- ========== PAYER / PROVIDER ========== -->
@@ -930,6 +1201,14 @@
           <option>ACO</option>
           <option>Health System</option>
         </select>
+        <select class="input" id="filterStarPayer">
+          <option value="">All star ratings</option>
+          <option value="5.0">5.0 stars</option>
+          <option value="4.5">4.5 stars</option>
+          <option value="4.0">4.0 stars</option>
+          <option value="3.5">3.5 stars</option>
+          <option value="N/A">N/A</option>
+        </select>
         <div class="toolbar-spacer"></div>
         <span id="countPayer" style="font-size:12px;color:var(--gray-500);"></span>
       </div>
@@ -939,6 +1218,7 @@
             <tr>
               <th data-sort="organizationName">Organization</th>
               <th data-sort="customerType">Type</th>
+              <th data-sort="starRating">Healthcare Intel</th>
               <th data-sort="coveredMembers" class="num">Members</th>
               <th data-sort="estimatedPMPM" class="num">PMPM</th>
               <th data-sort="acv" class="num">ACV</th>
@@ -1010,6 +1290,36 @@
     </div>
   </section>
 
+
+  <!-- ========== PIPELINE BOARD (KANBAN) ========== -->
+  <section class="view" id="view-board">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Pipeline Board</div>
+        <div class="page-subtitle">Drag-and-drop deals between stages to update them</div>
+      </div>
+    </div>
+    <div class="board-filter-bar">
+      <select class="input" id="boardFilter">
+        <option value="all">All deals</option>
+        <option value="payer">Payer / Provider only</option>
+        <option value="sponsor">Sponsor only</option>
+      </select>
+      <span id="boardCount" style="font-size:12px;color:var(--gray-500);"></span>
+    </div>
+    <div class="kanban-grid" id="kanbanGrid"></div>
+  </section>
+
+  <!-- ========== FORECASTING ========== -->
+  <section class="view" id="view-forecasting">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Forecasting</div>
+        <div class="page-subtitle">Annual revenue targets, scenarios, and pipeline coverage</div>
+      </div>
+    </div>
+    <div id="forecastingContent"></div>
+  </section>
 
   <!-- ========== CONTACT DETAIL ========== -->
   <section class="view" id="view-contact">
@@ -1203,19 +1513,42 @@ const STAGE_CLASS = {
 const PAYER_TYPES = ["Health Plan", "ACO", "Health System"];
 const SPONSOR_TYPES = ["Pharma", "Biotech", "CRO"];
 
-const STORAGE_KEY = "haystack_crm_v4";
+const STORAGE_KEY = "haystack_crm_v5";
+
+const STAR_RATINGS = ["N/A", "3.5", "4.0", "4.5", "5.0"];
+const PLAN_YEARS = ["N/A", "2026", "2027"];
+const RISK_ARRANGEMENTS = ["N/A", "Capitated", "Fee-for-Service", "Shared Savings", "Two-Sided Risk"];
+const RISK_ABBREV = {
+  "Capitated": "CAP",
+  "Fee-for-Service": "FFS",
+  "Shared Savings": "SS",
+  "Two-Sided Risk": "2SR",
+};
+
+const CMS_CALENDAR = [
+  { date: "2026-06-01", title: "CY2027 MA Bid Submission Deadline", desc: "First Monday of June — bids due to CMS", category: "deadline" },
+  { date: "2026-10-08", title: "2027 Star Ratings Release", desc: "CMS publishes official Star Ratings for next plan year", category: "milestone" },
+  { date: "2026-10-15", title: "AEP Begins (Annual Election Period)", desc: "Beneficiaries can enroll in / switch MA plans", category: "enrollment" },
+  { date: "2026-12-07", title: "AEP Ends", desc: "Final day of annual MA enrollment window", category: "enrollment" },
+  { date: "2027-01-01", title: "CY2027 Plan Year Begins", desc: "New benefit year takes effect; OEP also opens today", category: "milestone" },
+  { date: "2027-03-31", title: "MA OEP Ends", desc: "Medicare Advantage Open Enrollment Period closes", category: "enrollment" },
+];
+
+const DEFAULT_ANNUAL_TARGET = 25000000;
 
 /* --- State --- */
 let state = {
   payer: [],
   sponsor: [],
   interactions: [],
+  annualTarget: DEFAULT_ANNUAL_TARGET,
+  boardFilter: "all",
   sort: {
     payer:   { key: "weighted", dir: "desc" },
     sponsor: { key: "weighted", dir: "desc" },
   },
   filters: {
-    payer:   { search: "", stage: "", type: "" },
+    payer:   { search: "", stage: "", type: "", starRating: "" },
     sponsor: { search: "", stage: "", type: "" },
   },
 };
@@ -1231,6 +1564,7 @@ function loadState() {
       state.payer = data.payer || [];
       state.sponsor = data.sponsor || [];
       state.interactions = data.interactions || [];
+      state.annualTarget = (data.annualTarget != null) ? data.annualTarget : DEFAULT_ANNUAL_TARGET;
       return true;
     }
   } catch (e) { console.error(e); }
@@ -1242,6 +1576,7 @@ function saveState() {
     payer: state.payer,
     sponsor: state.sponsor,
     interactions: state.interactions,
+    annualTarget: state.annualTarget,
   }));
 }
 
@@ -1502,6 +1837,53 @@ function seed() {
   I(findS("Gilead Sciences"), "2026-05-10", "Email", "Outreach about Trodelvy ADC and oncology pipeline.", "");
   I(findS("Parexel"), "2026-05-08", "Email", "CRO partnership outreach.", "");
 
+  // ============================================================
+  // Healthcare Intelligence Layer — defaults + per-org overrides
+  // ============================================================
+  state.payer.forEach(r => {
+    if (r.customerType === "Health Plan") {
+      r.starRating = "N/A"; r.planYear = "2027"; r.riskArrangement = "N/A";
+    } else if (r.customerType === "ACO") {
+      r.starRating = "N/A"; r.planYear = "2027"; r.riskArrangement = "Shared Savings";
+    } else if (r.customerType === "Health System") {
+      r.starRating = "N/A"; r.planYear = "2027"; r.riskArrangement = "Capitated";
+    } else {
+      r.starRating = "N/A"; r.planYear = "N/A"; r.riskArrangement = "N/A";
+    }
+  });
+
+  const setIntel = (rec, star, year, risk) => {
+    if (!rec) return;
+    rec.starRating = star; rec.planYear = year; rec.riskArrangement = risk;
+  };
+
+  setIntel(findP("UnitedHealthcare Medicare & Retirement"), "4.0", "2027", "Fee-for-Service");
+  setIntel(findP("Humana Medicare"),                          "4.5", "2027", "Capitated");
+  setIntel(findP("Aetna Medicare (CVS Health)"),              "4.5", "2027", "Capitated");
+  setIntel(findP("Elevance Health (Wellpoint)"),              "4.0", "2027", "Fee-for-Service");
+  setIntel(findP("Centene (Wellcare)"),                       "3.5", "2027", "Fee-for-Service");
+  setIntel(findP("Kaiser Permanente Medicare"),               "5.0", "2027", "Capitated");
+  setIntel(findP("SCAN Health Plan"),                         "4.5", "2027", "Capitated");
+  setIntel(findP("Devoted Health"),                           "4.5", "2026", "Capitated");
+  setIntel(findP("Alignment Healthcare"),                     "4.0", "2027", "Capitated");
+  setIntel(findP("Clover Health"),                            "3.5", "2027", "Fee-for-Service");
+  setIntel(findP("Molina Healthcare Medicare"),               "3.5", "2027", "Capitated");
+  setIntel(findP("Blue Cross Blue Shield of Michigan"),       "4.0", "2027", "Fee-for-Service");
+  setIntel(findP("Highmark Health"),                          "4.0", "2027", "Fee-for-Service");
+  setIntel(findP("Health Care Service Corp (HCSC)"),          "4.0", "2027", "Fee-for-Service");
+  setIntel(findP("CareSource Medicare"),                      "3.5", "2027", "Capitated");
+  setIntel(findP("Blue Cross Blue Shield of Minnesota"),      "4.0", "2027", "Fee-for-Service");
+  setIntel(findP("Florida Blue Medicare"),                    "4.0", "2027", "Fee-for-Service");
+  setIntel(findP("Geisinger Health Plan (Risant Health)"),    "5.0", "2027", "Capitated");
+  setIntel(findP("Trinity Health (MediGold)"),                "4.0", "2027", "Capitated");
+  setIntel(findP("WellMed Medical Group (Optum)"),            "4.5", "2027", "Capitated");
+
+  // ACO two-sided risk overrides
+  ["Palm Beach ACO", "Baptist Physician Partners ACO", "WellSpan Health Medicare ACO", "Integrated Care Partners (Hartford HealthCare)"]
+    .forEach(name => { const r = findP(name); if (r) r.riskArrangement = "Two-Sided Risk"; });
+
+  state.annualTarget = DEFAULT_ANNUAL_TARGET;
+
   saveState();
 }
 
@@ -1643,6 +2025,7 @@ function getPayerRows() {
   }
   if (f.stage) rows = rows.filter(r => r.stage === f.stage);
   if (f.type)  rows = rows.filter(r => r.customerType === f.type);
+  if (f.starRating) rows = rows.filter(r => (r.starRating || "N/A") === f.starRating);
 
   rows.sort((a, b) => {
     const av = a[s.key], bv = b[s.key];
@@ -1652,6 +2035,24 @@ function getPayerRows() {
       : String(bv||"").localeCompare(String(av||""));
   });
   return rows;
+}
+
+function intelPills(r) {
+  const parts = [];
+  if (r.starRating && r.starRating !== "N/A") {
+    parts.push(`<span class="intel-pill intel-star">⭐ ${escapeHTML(r.starRating)}</span>`);
+  }
+  if (r.planYear && r.planYear !== "N/A") {
+    const py = String(r.planYear).slice(-2);
+    parts.push(`<span class="intel-pill intel-year">PY${py}</span>`);
+  }
+  if (r.riskArrangement && r.riskArrangement !== "N/A") {
+    const abbr = RISK_ABBREV[r.riskArrangement] || r.riskArrangement;
+    const cls = abbr === "CAP" ? "cap" : abbr === "FFS" ? "ffs" : abbr === "SS" ? "ss" : abbr === "2SR" ? "tsr" : "";
+    parts.push(`<span class="intel-pill intel-risk ${cls}" title="${escapeAttr(r.riskArrangement)}">${abbr}</span>`);
+  }
+  if (parts.length === 0) return `<span style="color:var(--gray-300);font-size:11px;">—</span>`;
+  return `<span class="intel-cell">${parts.join("")}</span>`;
 }
 
 function renderPayer() {
@@ -1674,7 +2075,7 @@ function renderPayer() {
 
   const tbody = document.querySelector("#tablePayer tbody");
   if (rows.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="9"><div class="empty">
+    tbody.innerHTML = `<tr><td colspan="10"><div class="empty">
       <h3>${state.payer.length === 0 ? "No contacts yet" : "No matches"}</h3>
       <p>${state.payer.length === 0 ? "Add your first Payer/Provider contact to get started." : "Try adjusting your filters."}</p>
     </div></td></tr>`;
@@ -1689,6 +2090,7 @@ function renderPayer() {
         <div class="org-sub">${escapeHTML(r.contactName)} · ${escapeHTML(r.contactEmail)}</div>
       </td>
       <td><span class="pill pill-type">${r.customerType}</span></td>
+      <td>${intelPills(r)}</td>
       <td class="num money">${fmtNumber(r.coveredMembers)}</td>
       <td class="num money">$${(Number(r.estimatedPMPM)||0).toFixed(2)}</td>
       <td class="num money money-strong">${fmtMoneyFull(r.acv)}</td>
@@ -1864,6 +2266,9 @@ function renderFormFields(data) {
 
   let segFields = "";
   if (seg === "payer") {
+    const starOpts = STAR_RATINGS.map(o => `<option ${(data.starRating || "N/A") === o ? "selected" : ""}>${o}</option>`).join("");
+    const yearOpts = PLAN_YEARS.map(o => `<option ${(data.planYear || "N/A") === o ? "selected" : ""}>${o}</option>`).join("");
+    const riskOpts = RISK_ARRANGEMENTS.map(o => `<option ${(data.riskArrangement || "N/A") === o ? "selected" : ""}>${o}</option>`).join("");
     segFields = `
       <div class="form-row">
         <label>Covered Members</label>
@@ -1874,6 +2279,18 @@ function renderFormFields(data) {
         <label>Estimated PMPM ($)</label>
         <input type="number" min="0" step="0.01" class="input" name="estimatedPMPM" value="${data.estimatedPMPM ?? ""}" required />
         <div class="field-error">Required</div>
+      </div>
+      <div class="form-row">
+        <label>Star Rating</label>
+        <select class="input" name="starRating">${starOpts}</select>
+      </div>
+      <div class="form-row">
+        <label>Plan Year</label>
+        <select class="input" name="planYear">${yearOpts}</select>
+      </div>
+      <div class="form-row full">
+        <label>Risk Arrangement</label>
+        <select class="input" name="riskArrangement">${riskOpts}</select>
       </div>
     `;
   } else {
@@ -2046,10 +2463,10 @@ function deleteCurrent() {
 function exportCSV(segment) {
   let headers, rows;
   if (segment === "payer") {
-    headers = ["Organization", "Contact", "Email", "Customer Type", "Covered Members", "Estimated PMPM", "Annual Contract Value", "Stage", "Close Probability (%)", "Weighted Pipeline Value", "Notes"];
+    headers = ["Organization", "Contact", "Email", "Customer Type", "Covered Members", "Estimated PMPM", "Star Rating", "Plan Year", "Risk Arrangement", "Annual Contract Value", "Stage", "Close Probability (%)", "Weighted Pipeline Value", "Notes"];
     rows = state.payer.map(r => {
       const c = calcPayer(r);
-      return [r.organizationName, r.contactName, r.contactEmail, r.customerType, r.coveredMembers, r.estimatedPMPM, c.acv, r.stage, r.closeProbability, c.weighted, r.notes || ""];
+      return [r.organizationName, r.contactName, r.contactEmail, r.customerType, r.coveredMembers, r.estimatedPMPM, r.starRating || "N/A", r.planYear || "N/A", r.riskArrangement || "N/A", c.acv, r.stage, r.closeProbability, c.weighted, r.notes || ""];
     });
     downloadCSV("haystack-payer-provider.csv", headers, rows);
   } else if (segment === "sponsor") {
@@ -2091,9 +2508,15 @@ const IMPORT_SCHEMAS = {
     label: "Payer / Provider",
     required: ["organization", "contact", "email", "customer type", "covered members", "estimated pmpm", "stage"],
     types: PAYER_TYPES,
-    templateHeaders: ["Organization", "Contact", "Email", "Customer Type", "Covered Members", "Estimated PMPM", "Stage", "Close Probability (%)", "Notes"],
-    templateRow:     ["Acme Health Plan", "Jane Doe", "jane@acme.com", "Health Plan", "100000", "1.75", "Prospecting", "10", "Optional notes"],
+    templateHeaders: ["Organization", "Contact", "Email", "Customer Type", "Covered Members", "Estimated PMPM", "Star Rating", "Plan Year", "Risk Arrangement", "Stage", "Close Probability (%)", "Notes"],
+    templateRow:     ["Acme Health Plan", "Jane Doe", "jane@acme.com", "Health Plan", "100000", "1.75", "4.0", "2027", "Capitated", "Prospecting", "10", "Optional notes"],
     parse(row) {
+      const normChoice = (val, allowed) => {
+        if (!val) return allowed[0];
+        const t = String(val).trim();
+        const m = allowed.find(a => a.toLowerCase() === t.toLowerCase());
+        return m || allowed[0];
+      };
       return {
         organizationName: row["organization"] || row["organization name"] || "",
         contactName:      row["contact"] || row["contact name"] || "",
@@ -2101,6 +2524,9 @@ const IMPORT_SCHEMAS = {
         customerType:     normalizeType(row["customer type"] || row["type"] || "", PAYER_TYPES),
         coveredMembers:   toNumber(row["covered members"] || row["members"]),
         estimatedPMPM:    toNumber(row["estimated pmpm"] || row["pmpm"]),
+        starRating:       normChoice(row["star rating"] || row["stars"], STAR_RATINGS),
+        planYear:         normChoice(row["plan year"], PLAN_YEARS),
+        riskArrangement:  normChoice(row["risk arrangement"] || row["risk"], RISK_ARRANGEMENTS),
         stage:            normalizeStage(row["stage"] || "Prospecting"),
         closeProbability: toNumber(row["close probability (%)"] || row["close probability"] || row["probability"]) || STAGE_PROBABILITY[normalizeStage(row["stage"] || "Prospecting")],
         notes:            row["notes"] || "",
@@ -2315,11 +2741,19 @@ function renderContactDetail() {
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   let fieldsHTML = "";
+  let intelHTML = "";
   if (segment === "payer") {
     fieldsHTML = `
       <div class="detail-field"><div class="lbl">Customer Type</div><div class="val">${rec.customerType}</div></div>
       <div class="detail-field"><div class="lbl">Covered Members</div><div class="val">${fmtNumber(rec.coveredMembers)}</div></div>
       <div class="detail-field"><div class="lbl">Estimated PMPM</div><div class="val">$${(Number(rec.estimatedPMPM)||0).toFixed(2)}</div></div>
+    `;
+    intelHTML = `
+      <div class="intel-detail-row">
+        <div class="detail-field"><div class="lbl">Star Rating</div><div class="val">${(rec.starRating && rec.starRating !== "N/A") ? `⭐ ${rec.starRating}` : "—"}</div></div>
+        <div class="detail-field"><div class="lbl">Plan Year</div><div class="val">${(rec.planYear && rec.planYear !== "N/A") ? rec.planYear : "—"}</div></div>
+        <div class="detail-field"><div class="lbl">Risk Arrangement</div><div class="val">${(rec.riskArrangement && rec.riskArrangement !== "N/A") ? rec.riskArrangement : "—"}</div></div>
+      </div>
     `;
   } else {
     fieldsHTML = `
@@ -2371,6 +2805,7 @@ function renderContactDetail() {
             <div class="detail-field"><div class="lbl">Pipeline Stage</div><div class="val">${stagePill(rec.stage)}</div></div>
             <div class="detail-field"><div class="lbl">Weighted Value</div><div class="val big">${fmtMoneyFull(calc.weighted)}</div></div>
           </div>
+          ${intelHTML}
           ${rec.notes ? `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--gray-100);font-size:13px;color:var(--gray-700);line-height:1.6;">${escapeHTML(rec.notes)}</div>` : ""}
         </div>
       </div>
@@ -2551,13 +2986,475 @@ function renderAttention() {
 }
 
 /* ============================================================
+   CMS REGULATORY CALENDAR
+   ============================================================ */
+const TODAY = new Date("2026-05-14T12:00:00");
+
+function daysBetween(target) {
+  const t = new Date(target + "T12:00:00");
+  return Math.round((t - TODAY) / (1000 * 60 * 60 * 24));
+}
+
+function untilLabel(days) {
+  if (days < 0) return "Passed";
+  if (days === 0) return "Today";
+  if (days === 1) return "Tomorrow";
+  if (days < 60) return `in ${days} days`;
+  const months = Math.round(days / 30);
+  return `in ${months} month${months === 1 ? "" : "s"}`;
+}
+
+function renderCMSCalendar() {
+  const el = document.getElementById("cmsCalendar");
+  if (!el) return;
+
+  // Count at-risk 2027 deals
+  const atRisk = state.payer.filter(r =>
+    r.planYear === "2027" &&
+    (r.stage === "Prospecting" || r.stage === "In Conversation")
+  ).length;
+
+  el.innerHTML = `<div class="cms-grid">${CMS_CALENDAR.map(ev => {
+    const days = daysBetween(ev.date);
+    const past = days < 0;
+    const d = new Date(ev.date + "T12:00:00");
+    const fmtDate = d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    const showWarn = ev.title.indexOf("CY2027 MA Bid") === 0 && atRisk > 0 && !past;
+    return `
+      <div class="cms-card ${ev.category} ${past ? "past" : ""}">
+        <div class="cms-card-top">
+          <div>
+            <div class="cms-date">${fmtDate}</div>
+            <div class="cms-until">${untilLabel(days)}</div>
+          </div>
+          <span class="cms-badge ${ev.category}">${ev.category}</span>
+        </div>
+        <div class="cms-title">${escapeHTML(ev.title)}</div>
+        <div class="cms-desc">${escapeHTML(ev.desc)}</div>
+        ${showWarn ? `<span class="cms-warn-chip">⚠ ${atRisk} deal${atRisk === 1 ? "" : "s"} at risk</span>` : ""}
+      </div>
+    `;
+  }).join("")}</div>`;
+}
+
+/* ============================================================
+   PRIORITY SCORE — Top 10
+   ============================================================ */
+function computePriorities() {
+  const stageMult = { "Proposal Sent": 3.0, "In Conversation": 2.0, "Prospecting": 1.0 };
+
+  const allDeals = [
+    ...state.payer.map(r => ({ ...r, ...calcPayer(r), segment: "payer" })),
+    ...state.sponsor.map(r => ({ ...r, ...calcSponsor(r), segment: "sponsor" })),
+  ].filter(r => stageMult[r.stage] != null);
+
+  return allDeals.map(r => {
+    const interactions = state.interactions
+      .filter(i => i.contactId === r.id)
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+    const lastDate = interactions[0]?.date || null;
+    const days = lastDate ? daysSince(lastDate) : null;
+    const count = interactions.length;
+
+    let recency, recencyLabel;
+    if (days === null) { recency = 1.5; recencyLabel = "never contacted"; }
+    else if (days <= 7) { recency = 1.2; recencyLabel = `momentum — ${days}d since last touch`; }
+    else if (days <= 14) { recency = 1.0; recencyLabel = `${days}d since last touch`; }
+    else if (days <= 30) { recency = 1.4; recencyLabel = `${days}d quiet — needs attention`; }
+    else { recency = 1.8; recencyLabel = `${days}d cold — overdue`; }
+
+    let momentum, momentumLabel;
+    if (count === 0) { momentum = 0.9; momentumLabel = "no touches yet"; }
+    else if (count <= 2) { momentum = 1.0; momentumLabel = `${count} touch${count === 1 ? "" : "es"}`; }
+    else if (count <= 4) { momentum = 1.2; momentumLabel = `${count} touches`; }
+    else { momentum = 1.4; momentumLabel = `${count} touches — strong momentum`; }
+
+    const score = (r.weighted / 1000) * stageMult[r.stage] * recency * momentum;
+
+    // Build a "why" line - pick the dominant driver
+    let why;
+    if (r.stage === "Proposal Sent" && days !== null && days > 14) {
+      why = `Live proposal, ${days}d quiet — push to close`;
+    } else if (r.stage === "Proposal Sent") {
+      why = `Live proposal at ${r.closeProbability}% — keep momentum`;
+    } else if (days !== null && days > 30) {
+      why = `${recencyLabel} — re-engage`;
+    } else if (count >= 5) {
+      why = `${momentumLabel} — close to advancing`;
+    } else if (days === null) {
+      why = `Untouched ${r.customerType} — start the conversation`;
+    } else {
+      why = `${r.stage} · ${recencyLabel}`;
+    }
+
+    return { ...r, score, why, daysSinceLast: days };
+  }).sort((a, b) => b.score - a.score);
+}
+
+function renderPriorityList() {
+  const el = document.getElementById("priorityList");
+  if (!el) return;
+  const top = computePriorities().slice(0, 10);
+
+  if (top.length === 0) {
+    el.innerHTML = `<div class="empty" style="padding:24px 0;"><p>No active deals to prioritize.</p></div>`;
+    return;
+  }
+
+  el.innerHTML = `<div class="priority-list">${top.map((r, i) => {
+    const rank = i + 1;
+    const segLabel = r.segment === "payer" ? "Payer" : "Sponsor";
+    const segClass = r.segment === "payer" ? "payer" : "sponsor";
+    return `
+      <div class="priority-row" data-open-contact="${r.id}" data-open-segment="${r.segment}">
+        <div class="priority-rank ${rank <= 3 ? "top3" : ""}">${rank}</div>
+        <div class="priority-main">
+          <div class="priority-org">
+            ${escapeHTML(r.organizationName)}
+            <span class="segment-badge ${segClass}">${segLabel}</span>
+            ${stagePill(r.stage)}
+          </div>
+          <div class="priority-why">${escapeHTML(r.why)}</div>
+        </div>
+        <div class="priority-value">
+          ${fmtMoney(r.weighted)}
+          <span class="sub">Weighted</span>
+        </div>
+      </div>
+    `;
+  }).join("")}</div>`;
+
+  el.querySelectorAll("[data-open-contact]").forEach(row => {
+    row.onclick = () => openContact(row.dataset.openContact, row.dataset.openSegment, "dashboard");
+  });
+}
+
+/* ============================================================
+   FORECASTING
+   ============================================================ */
+function calcScenarios(rows) {
+  let conservative = 0, bestCase = 0, realistic = 0;
+  rows.forEach(r => {
+    realistic += r.weighted;
+    if (r.stage === "Closed Won")       { conservative += r.acv; bestCase += r.acv; }
+    else if (r.stage === "Proposal Sent")    { conservative += r.acv * 0.6; bestCase += r.acv * 0.8; }
+    else if (r.stage === "In Conversation")  { bestCase += r.acv * 0.4; }
+    else if (r.stage === "Prospecting")      { bestCase += r.acv * 0.15; }
+  });
+  return { conservative, realistic, bestCase };
+}
+
+function pipelineByStageRows(rows) {
+  const totalWeighted = rows.reduce((s, r) => s + r.weighted, 0) || 1;
+  return STAGES.map(stage => {
+    const inStage = rows.filter(r => r.stage === stage);
+    const acv = inStage.reduce((s, r) => s + r.acv, 0);
+    const weighted = inStage.reduce((s, r) => s + r.weighted, 0);
+    return { stage, count: inStage.length, acv, weighted, pct: (weighted / totalWeighted) * 100 };
+  });
+}
+
+function renderForecasting() {
+  const el = document.getElementById("forecastingContent");
+  if (!el) return;
+
+  const payerRows = state.payer.map(r => ({ ...r, ...calcPayer(r), segment: "payer" }));
+  const sponsorRows = state.sponsor.map(r => ({ ...r, ...calcSponsor(r), segment: "sponsor" }));
+  const allRows = [...payerRows, ...sponsorRows];
+
+  const scen = calcScenarios(allRows);
+  const target = Number(state.annualTarget) || DEFAULT_ANNUAL_TARGET;
+  const coverage = target > 0 ? (scen.realistic / target) : 0;
+
+  let coverageClass, coverageInterp;
+  if (coverage < 2) {
+    coverageClass = "red";
+    coverageInterp = `Thin — ${coverage.toFixed(1)}x coverage. Most B2B benchmarks expect 3-4x pipeline-to-target ratio.`;
+  } else if (coverage < 3) {
+    coverageClass = "amber";
+    coverageInterp = `Getting there — ${coverage.toFixed(1)}x coverage. Most B2B benchmarks expect 3-4x pipeline-to-target ratio.`;
+  } else {
+    coverageClass = "green";
+    coverageInterp = `Healthy — ${coverage.toFixed(1)}x coverage. Most B2B benchmarks expect 3-4x pipeline-to-target ratio.`;
+  }
+
+  const stageBreakdown = pipelineByStageRows(allRows);
+  const payerScen = calcScenarios(payerRows);
+  const sponsorScen = calcScenarios(sponsorRows);
+
+  el.innerHTML = `
+    <div class="panel" style="margin-bottom:20px;">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Annual Revenue Target</div>
+          <div class="panel-subtitle">Set your goal and track pipeline coverage</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div style="display:grid; grid-template-columns: 320px 1fr 1fr 1fr; gap: 20px; align-items: center;">
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Annual Target ($)</label>
+            <input type="number" min="0" step="100000" class="input target-input" id="annualTargetInput" value="${target}" />
+          </div>
+          <div>
+            <div class="kpi-label">Current Weighted Pipeline</div>
+            <div class="kpi-value" style="font-size:22px;">${fmtMoney(scen.realistic)}</div>
+          </div>
+          <div>
+            <div class="kpi-label">Annual Target</div>
+            <div class="kpi-value" style="font-size:22px;">${fmtMoney(target)}</div>
+          </div>
+          <div>
+            <div class="kpi-label">Pipeline Coverage</div>
+            <div class="kpi-value" style="font-size:22px;"><span class="coverage-pill ${coverageClass}">${coverage.toFixed(1)}x</span></div>
+          </div>
+        </div>
+        <div style="margin-top:14px;font-size:13px;color:var(--gray-700);"><strong style="color:var(--navy-900);">Interpretation:</strong> ${coverageInterp}</div>
+      </div>
+    </div>
+
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <div class="scenario-label">Conservative</div>
+        <div class="scenario-value" style="color:var(--navy-900);">${fmtMoney(scen.conservative)}</div>
+        <div class="scenario-sub">Only count deals with proposals on the table.</div>
+        <div class="scenario-formula">100% Closed Won + 60% Proposal Sent</div>
+      </div>
+      <div class="scenario-card featured">
+        <div class="scenario-label">Realistic</div>
+        <div class="scenario-value">${fmtMoney(scen.realistic)}</div>
+        <div class="scenario-sub">Probability-weighted across all stages.</div>
+        <div class="scenario-formula">Σ (ACV × close probability)</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-label">Best Case</div>
+        <div class="scenario-value" style="color:var(--navy-900);">${fmtMoney(scen.bestCase)}</div>
+        <div class="scenario-sub">All deals progress through funnel.</div>
+        <div class="scenario-formula">100% Won + 80% Proposal + 40% Conv. + 15% Prosp.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Pipeline by Stage</div>
+          <div class="panel-subtitle">Across both segments</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th class="num">Deals</th>
+              <th class="num">Total ACV</th>
+              <th class="num">Weighted</th>
+              <th class="num">% of Weighted Pipeline</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${stageBreakdown.map(s => `
+              <tr>
+                <td>${stagePill(s.stage)}</td>
+                <td class="num money">${s.count}</td>
+                <td class="num money">${fmtMoneyFull(s.acv)}</td>
+                <td class="num money money-strong">${fmtMoneyFull(s.weighted)}</td>
+                <td class="num money">${s.pct.toFixed(1)}%</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col">
+      ${[{ label: "Payer / Provider", s: payerScen }, { label: "Sponsor", s: sponsorScen }].map(seg => `
+        <div class="panel">
+          <div class="panel-header">
+            <div><div class="panel-title">${seg.label} — Scenarios</div></div>
+          </div>
+          <div class="panel-body">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:8px 12px;background:var(--navy-50);border-radius:var(--radius-sm);">
+                <div><div class="kpi-label">Conservative</div></div>
+                <div class="money money-strong" style="font-size:16px;">${fmtMoney(seg.s.conservative)}</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 14px;background:linear-gradient(135deg, var(--navy-900), var(--navy-700));color:var(--white);border-radius:var(--radius-sm);">
+                <div><div class="kpi-label" style="color:var(--navy-100);">Realistic</div></div>
+                <div class="money" style="font-size:18px;">${fmtMoney(seg.s.realistic)}</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:8px 12px;background:var(--navy-50);border-radius:var(--radius-sm);">
+                <div><div class="kpi-label">Best Case</div></div>
+                <div class="money money-strong" style="font-size:16px;">${fmtMoney(seg.s.bestCase)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  const targetInput = document.getElementById("annualTargetInput");
+  if (targetInput) {
+    targetInput.addEventListener("change", () => {
+      const v = Number(targetInput.value);
+      if (!isNaN(v) && v >= 0) {
+        state.annualTarget = v;
+        saveState();
+        renderForecasting();
+      }
+    });
+  }
+}
+
+/* ============================================================
+   KANBAN BOARD
+   ============================================================ */
+function renderBoard() {
+  const el = document.getElementById("kanbanGrid");
+  if (!el) return;
+
+  const filt = state.boardFilter || "all";
+  let rows = [];
+  if (filt === "all" || filt === "payer") {
+    rows = rows.concat(state.payer.map(r => ({ ...r, ...calcPayer(r), segment: "payer" })));
+  }
+  if (filt === "all" || filt === "sponsor") {
+    rows = rows.concat(state.sponsor.map(r => ({ ...r, ...calcSponsor(r), segment: "sponsor" })));
+  }
+
+  // Add last-touch info
+  rows = rows.map(r => {
+    const interactions = state.interactions
+      .filter(i => i.contactId === r.id)
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+    const last = interactions[0] || null;
+    return { ...r, daysSinceLast: last ? daysSince(last.date) : null };
+  });
+
+  document.getElementById("boardCount").textContent = `${rows.length} deal${rows.length === 1 ? "" : "s"}`;
+
+  const filterSel = document.getElementById("boardFilter");
+  if (filterSel && filterSel.value !== filt) filterSel.value = filt;
+
+  el.innerHTML = STAGES.map(stage => {
+    const inStage = rows.filter(r => r.stage === stage);
+    const weighted = inStage.reduce((s, r) => s + r.weighted, 0);
+    const headerCls = STAGE_CLASS[stage];
+    return `
+      <div class="kanban-col" data-stage="${escapeAttr(stage)}">
+        <div class="kanban-col-header ${headerCls}">
+          <div class="kanban-col-title"><span>${stage}</span><span>${inStage.length}</span></div>
+          <div class="kanban-col-meta"><span>Weighted</span><span class="money money-strong">${fmtMoney(weighted)}</span></div>
+        </div>
+        <div class="kanban-cards" data-drop-stage="${escapeAttr(stage)}">
+          ${inStage.map(r => kanbanCard(r)).join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  wireKanbanEvents();
+}
+
+function kanbanCard(r) {
+  let touchCls = "never", touchLabel = "Never touched";
+  if (r.daysSinceLast !== null) {
+    if (r.daysSinceLast <= 7) { touchCls = "recent"; touchLabel = `${r.daysSinceLast}d ago`; }
+    else if (r.daysSinceLast <= 21) { touchCls = "warm"; touchLabel = `${r.daysSinceLast}d ago`; }
+    else { touchCls = "cold"; touchLabel = `${r.daysSinceLast}d ago`; }
+  }
+  const segClass = r.segment === "payer" ? "payer" : "sponsor";
+  const segLabel = r.segment === "payer" ? "Payer" : "Sponsor";
+
+  let intelHTML = "";
+  if (r.segment === "payer") {
+    const bits = [];
+    if (r.starRating && r.starRating !== "N/A") bits.push(`<span class="intel-pill intel-star">⭐ ${escapeHTML(r.starRating)}</span>`);
+    if (r.planYear && r.planYear !== "N/A") bits.push(`<span class="intel-pill intel-year">PY${String(r.planYear).slice(-2)}</span>`);
+    if (bits.length) intelHTML = `<div class="kanban-card-intel">${bits.join("")}</div>`;
+  }
+
+  return `
+    <div class="kanban-card" draggable="true" data-id="${r.id}" data-segment="${r.segment}">
+      <div class="kanban-card-org">${escapeHTML(r.organizationName)}</div>
+      <div class="kanban-card-meta">
+        <span class="segment-badge ${segClass}">${segLabel}</span>
+        <span class="kanban-card-type">${escapeHTML(r.customerType)}</span>
+      </div>
+      <div class="kanban-card-money">
+        <span class="kanban-card-weighted">${fmtMoney(r.weighted)}</span>
+        <span class="kanban-card-acv">ACV ${fmtMoney(r.acv)}</span>
+      </div>
+      <span class="kanban-card-touch ${touchCls}">⏱ ${touchLabel}</span>
+      ${intelHTML}
+    </div>
+  `;
+}
+
+function wireKanbanEvents() {
+  const cards = document.querySelectorAll(".kanban-card");
+  const cols = document.querySelectorAll(".kanban-cards");
+
+  let draggedId = null, draggedSeg = null;
+
+  cards.forEach(card => {
+    card.addEventListener("dragstart", e => {
+      draggedId = card.dataset.id;
+      draggedSeg = card.dataset.segment;
+      card.classList.add("dragging");
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", draggedId);
+    });
+    card.addEventListener("dragend", () => {
+      card.classList.remove("dragging");
+      document.querySelectorAll(".kanban-col.drag-over").forEach(c => c.classList.remove("drag-over"));
+    });
+    card.addEventListener("click", () => {
+      openContact(card.dataset.id, card.dataset.segment, "board");
+    });
+  });
+
+  cols.forEach(col => {
+    col.addEventListener("dragover", e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      col.closest(".kanban-col").classList.add("drag-over");
+    });
+    col.addEventListener("dragleave", e => {
+      if (e.target === col) col.closest(".kanban-col").classList.remove("drag-over");
+    });
+    col.addEventListener("drop", e => {
+      e.preventDefault();
+      col.closest(".kanban-col").classList.remove("drag-over");
+      const newStage = col.dataset.dropStage;
+      if (!draggedId || !newStage) return;
+      const list = draggedSeg === "payer" ? state.payer : state.sponsor;
+      const rec = list.find(r => r.id === draggedId);
+      if (!rec || rec.stage === newStage) { draggedId = null; return; }
+      rec.stage = newStage;
+      rec.closeProbability = STAGE_PROBABILITY[newStage];
+      rec.updatedAt = Date.now();
+      saveState();
+      toast(`Moved ${rec.organizationName} to ${newStage}`);
+      draggedId = null; draggedSeg = null;
+      renderAll();
+    });
+  });
+}
+
+/* ============================================================
    RENDER ALL
    ============================================================ */
 function renderAll() {
   renderDashboard();
+  renderCMSCalendar();
+  renderPriorityList();
   renderPayer();
   renderSponsor();
   renderAttention();
+  renderBoard();
+  renderForecasting();
 }
 
 /* ============================================================
